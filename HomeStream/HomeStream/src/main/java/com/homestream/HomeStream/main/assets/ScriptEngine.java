@@ -17,16 +17,16 @@ public class ScriptEngine
      * Class to to read '.script' Files
      *
      * @author S. Schulze
-     * @last_update 2.11.19
+     * @last_update 6.11.19
      */
 
     File script;
 
     ArrayList<String> data = new ArrayList<>();
     ArrayList<String> keys = new ArrayList<>();
-    Map<String, String[]> line = new HashMap<>();
+    Map<String, String[]> line = new HashMap<String, String[]>();
 
-    // Main Methode to read '.script' Files
+    // Main Method to read '.script' Files
     public void setScript(File scriptFile) throws IOException
     {
         script = scriptFile;
@@ -41,7 +41,7 @@ public class ScriptEngine
         BufferedReader reader = new BufferedReader(new FileReader(script));
 
         String line;
-        while ((line = reader.readLine()) != null && line.replace(" ", "").length() > 0) data.add(line);
+        while ((line = reader.readLine()) != null) if(line.replace(" ", "").length() > 0) data.add(line);
 
         reader.close();
     }
@@ -49,10 +49,10 @@ public class ScriptEngine
     // Decode File Data
     private void decrypt() throws IOException
     {
+        String key;
         for (String item : data)
         {
             String element[] = item.split(" ");
-            String key;
             String[] parameter = new String[element.length - 1];
 
             if(!element[0].endsWith(":")) throw new ScriptFormatException(element[0]);
@@ -61,16 +61,20 @@ public class ScriptEngine
             keys.add(key);
 
             if(element.length < 2) throw new LineFormatMismatch();
-            for( int i = 1; i < element.length; i++)
+
+            String[] excist;
+            if((excist = line.get(key)) != null)
             {
-                String param[] = element[i].split("=");
-                if(param.length != 2) throw new LineFormatMismatch();
-                if(!param[1].startsWith("'") || !param[1].endsWith("'")) throw new ScriptFormatException(param[1]);
+                String[] newExcist = new String[excist.length + 1];
+                newExcist[newExcist.length - 1] = element[1];
 
-                parameter[i - 1] = element[i];
-            };
+                for(int i = 0; i < excist.length; i++) newExcist[i] = excist[i];
+                for(String i : newExcist) System.out.println(i);
 
-            line.put(key, parameter);
+                line.remove(key);
+                line.put(key, newExcist);
+            }
+            else line.put(key, element);
 
         }
     }

@@ -1,32 +1,22 @@
 package com.homestream.HomeStream.web.assets;
 
-import com.homestream.HomeStream.main.exception.FileEndingException;
+import com.homestream.HomeStream.web.generator.WebGenerator;
 
 import java.io.*;
 
 public class HTML
 {
-    File file;
+    /**
+     * Class to store HTML
+     *
+     * @author S. Schulze
+     * @last_update 5.11.19
+     */
 
     String data;
+    WebGenerator generator = new WebGenerator();
 
-    public HTML(File htmlFile) throws IOException {
-        String name = htmlFile.getName().toLowerCase();
-        if(name.endsWith(".html")) file = htmlFile;
-        else throw new FileEndingException(name.split(".")[1], "html");
-
-        data = "";
-        read();
-    }
-
-    private void read() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        String line;
-        while ((line = reader.readLine()) != null) data += line;
-
-        reader.close();
-    }
+    public HTML(String scriptFile) throws IOException { data = generator.generate(scriptFile); }
 
     public String get(){ return data; }
 }
