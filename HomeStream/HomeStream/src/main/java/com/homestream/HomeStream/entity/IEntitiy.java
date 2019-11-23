@@ -7,7 +7,7 @@ package com.homestream.HomeStream.entity;
 public interface IEntitiy
 {
     /**
-     * Performs an equality check based on an ID
+     * Performs an equality check based on the ID
      * @param o The object that shall be compared with
      * @return Whether the given Object <code>o</code> and this are identical (see above)
      */

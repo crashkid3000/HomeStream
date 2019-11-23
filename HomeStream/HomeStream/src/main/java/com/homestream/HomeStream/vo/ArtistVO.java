@@ -13,6 +13,12 @@ public class ArtistVO {
     private String name;
     private LocalDate bday;
 
+    /**
+     * Creates a new ArtistVO instance
+     * @param dbid The ID of this VO in the database
+     * @param name The name of the artist
+     * @param bday When the artist was born
+     */
     public ArtistVO(long dbid, String name, LocalDate bday) {
         this.dbid = dbid;
         this.name = name;
@@ -21,8 +27,8 @@ public class ArtistVO {
 
     /**
      * Creates a new ArtistVO instance. <i>Use this if you're unsure about the dbid</i>
-     * @param name
-     * @param bday
+     * @param name The name of the artist
+     * @param bday When the artist was born
      */
     public ArtistVO(String name, LocalDate bday) {
         this.name = name;
@@ -60,14 +66,26 @@ public class ArtistVO {
         return cloned;
     }
 
+    /**
+     * Returns the ID of the artist in the database
+     * @return The ID of the artist in the database
+     */
     public long getDbid() {
         return dbid;
     }
 
+    /**
+     * Returns the name of the artist
+     * @return The name of the artist
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the artists birthday
+     * @return The artists birthday
+     */
     public LocalDate getBday() {
         return bday;
     }

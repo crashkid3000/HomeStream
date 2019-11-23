@@ -23,6 +23,13 @@ public class UserVO implements IValueObject {
         this.password = "";
     }
 
+    /**
+     * Creates a new user of HomeStream
+     * @param dbid The ID of the user in the DB
+     * @param name The user's name
+     * @param email The email address of the user
+     * @param password The <b>hashed</b> password of the user
+     */
     public UserVO(long dbid, String name, String email, String password) {
         this.dbid = dbid;
         this.name = name;
@@ -47,8 +54,8 @@ public class UserVO implements IValueObject {
     }
 
     /**
-     * Gets the hashed password of the user
-     * @return The hashed password of the user
+     * Gets the <b>hashed</b> password of the user
+     * @return The <b>hashed</b> password of the user
      */
     public String getPassword() {
         return password;

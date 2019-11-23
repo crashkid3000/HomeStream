@@ -20,21 +20,20 @@ public class FilmEntitiy extends MediaEntity {
 
     /**
      * Createa a new FilmEntitiy.
-     * @param id
-     * @param name
-     * @param releaseDate
-     * @param lastUpdated
-     * @param fileName
-     * @param fileSize
-     * @param ownedBy
-     * @param accessibleBy
-     * @param thumbnailName
-     * @param tags
-     * @param mainActors
-     * @param sideActors
-     * @param length
+     * @param id The ID of this entity
+     * @param name The name of the movie
+     * @param releaseDate On which date it was released
+     * @param fileName Where in the file system it can be found
+     * @param fileSize How big the file is
+     * @param ownedBy Who uploaded it
+     * @param accessibleBy Which role can access this film/movie?
+     * @param thumbnailName Where in the file system is the thumbnail for this?
+     * @param tags The tags for this
+     * @param mainActors The main actors in this movie
+     * @param sideActors The other actors in this movie
+     * @param length How long it is
      */
-    public FilmEntitiy(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntitiy accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntitiy(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
@@ -43,22 +42,87 @@ public class FilmEntitiy extends MediaEntity {
 
     /**
      * Creates a new FilmEntity instance. <i>Use this if you don't know the id, or when it was last updated</i>
-     * @param name
-     * @param releaseDate
-     * @param fileName
-     * @param fileSize
-     * @param ownedBy
-     * @param accessibleBy
-     * @param thumbnailName
-     * @param tags
-     * @param length
-     * @param mainActors
-     * @param sideActors
+     * @param name The name of the movie
+     * @param releaseDate On which date it was released
+     * @param fileName Where in the file system it can be found
+     * @param fileSize How big the file is
+     * @param ownedBy Who uploaded it
+     * @param accessibleBy Which role can access this film/movie?
+     * @param thumbnailName Where in the file system is the thumbnail for this?
+     * @param tags The tags for this
+     * @param length How long it is
+     * @param mainActors The main actors in this movie
+     * @param sideActors The other actors in this movie
      */
-    public FilmEntitiy(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntitiy accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntitiy(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
         this.length = length;
+    }
+
+    /**
+     * Gets the list of main actors of this movie/film
+     * @return the list of main actors of this movie/film
+     */
+    public List<ArtistVO> getMainActors() {
+        return mainActors;
+    }
+
+    /**
+     * Sets the list of main actors of this movie/film. Automatically updates the <code>lastUpdated</code> as well.
+     * @param mainActors The new list of main actors for this movie/film
+     */
+    public void setMainActors(List<ArtistVO> mainActors) {
+        this.mainActors = mainActors;
+        this.setLastUpdated();
+    }
+
+    /**
+     * Gets the list of side actors of this movie/film.
+     * @return the list of side actors of this movie/film
+     */
+    public List<ArtistVO> getSideActors() {
+        return sideActors;
+    }
+
+    /**
+     * Sets the list of side actors of this movie/film. Automatically updates the <code>lastUpdated</code> as well.
+     * @param sideActors The new list of side actors for this movie/film
+     */
+    public void setSideActors(List<ArtistVO> sideActors) {
+        this.sideActors = sideActors;
+        this.setLastUpdated();
+    }
+
+    /**
+     * Gets the length of the movie/film
+     * @return The length of the movie/film, as a dedicated LocalTime object
+     */
+    public LocalTime getLength() {
+        return length;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false; //This is enough, because we only need ID checking - and that's already done in the super class
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //The hash code shall only be dependant on teh ID, and that's alredy done in teh super class
+    }
+
+    @Override
+    public String toString() {
+        return "FilmEntitiy{" +
+                super.toString() +
+                ", mainActors=" + mainActors +
+                ", sideActors=" + sideActors +
+                ", length=" + length +
+                '}';
     }
 }
