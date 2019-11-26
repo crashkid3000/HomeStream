@@ -2,6 +2,7 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.UserVO;
 
+import javax.management.relation.Role;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +37,10 @@ public class RoleEntity implements IEntitiy{
         this.id = -1;
         this.name = name;
         this.users = users;
+    }
+
+    public RoleEntity(long id, RoleEntity roleIdless){
+        this(id, roleIdless.getName(), roleIdless.getUsers());
     }
 
     /**
