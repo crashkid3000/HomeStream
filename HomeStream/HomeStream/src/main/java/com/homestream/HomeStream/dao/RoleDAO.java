@@ -4,7 +4,7 @@ import com.homestream.HomeStream.entity.RoleEntity;
 
 import java.util.List;
 
-public class RoleDAO implements IRoleDAO {
+public class RoleDAO implements IDAO<RoleEntity> {
     @Override
     public RoleEntity create(RoleEntity roleEntitiy) {
         return null;
@@ -16,7 +16,7 @@ public class RoleDAO implements IRoleDAO {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
 
     }
 

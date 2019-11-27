@@ -1,8 +1,8 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.entity.FilmEntitiy;
+import com.homestream.HomeStream.entity.FilmEntity;
 import com.homestream.HomeStream.entity.ImageEntity;
-import com.homestream.HomeStream.entity.MusicEntitiy;
+import com.homestream.HomeStream.entity.MusicEntity;
 import com.homestream.HomeStream.entity.RoleEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
@@ -20,8 +20,8 @@ public class DBStub {
     public static List<UserVO> users;
     public static List<RoleEntity> roles;
     public static List<ArtistVO> artists;
-    public static List<FilmEntitiy> films;
-    public static List<MusicEntitiy> musics;
+    public static List<FilmEntity> films;
+    public static List<MusicEntity> musics;
     public static List<ImageEntity> images;
     public static Path dataDir = FileSystems.getDefault().getPath("res", "data").toAbsolutePath();
 
@@ -31,7 +31,7 @@ public class DBStub {
             users.add(new UserVO(0, "Jon Doe", "jon@doe.com", "HASHED:password"));
             users.add(new UserVO(1, "Max Muster", "musst@er.los", "HASHED:\""));
             users.add(new UserVO(2, "Norman Ritter", "nritter@koethen.de", "HASHED:meinefische"));
-            users.add(new UserVO(3, "Justin Braack", "bananenkennstdunicht@ost.en", "HASH:admin"));
+            users.add(new UserVO(3, "Justin Braack", "bananenkennstdunicht@ost.en", "HASHED:admin"));
         }
 
         if(null == roles){
@@ -63,8 +63,8 @@ public class DBStub {
             LinkedList<ArtistVO> __mainActorsCars = new LinkedList<ArtistVO>();
             __mainActorsCars.add(artists.get(4));
 
-            films.add(new FilmEntitiy(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), dataDir.toString() + "\\Csgo Atomflicc-1.m4v", 19281365, users.get(3), roles.get(1), null, new LinkedList<String>(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
-            films.add(new FilmEntitiy(1, "Cars (Music Video)", LocalDate.of(1999, 8, 28), LocalDateTime.now(), dataDir.toString() + "\\Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), roles.get(0), null, new LinkedList<String>(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
+            films.add(new FilmEntity(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), dataDir.toString() + "\\Csgo Atomflicc-1.m4v", 19281365, users.get(3), roles.get(1), null, new LinkedList<String>(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
+            films.add(new FilmEntity(1, "Cars (Music Video)", LocalDate.of(1999, 8, 28), LocalDateTime.now(), dataDir.toString() + "\\Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), roles.get(0), null, new LinkedList<String>(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
         }
 
         if(null == musics){
@@ -75,8 +75,8 @@ public class DBStub {
             __artistMonody.add(artists.get(3));
             __artistGamma.add(artists.get(0));
 
-            musics.add(new MusicEntitiy(0, "Monody", LocalDate.of(2015, 11, 7), LocalDateTime.now(), dataDir.toString() + "\\TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), roles.get(1), dataDir.toString() + "\\defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, LocalTime.of(0, 4, 51)));
-            musics.add(new MusicEntitiy(1, "Gamma", LocalDate.of(1999, 1, 1), LocalDateTime.now(), dataDir.toString() + "\\Demolition Racer.m4a", 4395643, users.get(1), roles.get(0), dataDir.toString() + "\\demolition_racer.png", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
+            musics.add(new MusicEntity(0, "Monody", LocalDate.of(2015, 11, 7), LocalDateTime.now(), dataDir.toString() + "\\TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), roles.get(1), dataDir.toString() + "\\defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, LocalTime.of(0, 4, 51)));
+            musics.add(new MusicEntity(1, "Gamma", LocalDate.of(1999, 1, 1), LocalDateTime.now(), dataDir.toString() + "\\Demolition Racer.m4a", 4395643, users.get(1), roles.get(0), dataDir.toString() + "\\demolition_racer.png", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
         }
 
         if (null == images)

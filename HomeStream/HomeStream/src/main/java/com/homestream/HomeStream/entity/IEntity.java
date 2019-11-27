@@ -4,7 +4,7 @@ package com.homestream.HomeStream.entity;
  * "Template" for all Entities
  * @author Justin Braack
  */
-public interface IEntitiy
+public interface IEntity
 {
     /**
      * Performs an equality check based on the ID

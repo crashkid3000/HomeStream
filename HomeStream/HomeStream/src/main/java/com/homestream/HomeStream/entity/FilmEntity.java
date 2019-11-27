@@ -12,7 +12,7 @@ import java.util.List;
  * An entity that represents everything between a homemade film to a blockbuster movie
  * @author Justin Braack
  */
-public class FilmEntitiy extends MediaEntity {
+public class FilmEntity extends MediaEntity {
 
     private List<ArtistVO> mainActors;
     private List<ArtistVO> sideActors;
@@ -33,7 +33,7 @@ public class FilmEntitiy extends MediaEntity {
      * @param sideActors The other actors in this movie
      * @param length How long it is
      */
-    public FilmEntitiy(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
@@ -54,11 +54,15 @@ public class FilmEntitiy extends MediaEntity {
      * @param mainActors The main actors in this movie
      * @param sideActors The other actors in this movie
      */
-    public FilmEntitiy(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
         this.length = length;
+    }
+
+    public FilmEntity(long id, FilmEntity Idless){
+        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getMainActors(), Idless.getSideActors(), Idless.getLength());
     }
 
     /**

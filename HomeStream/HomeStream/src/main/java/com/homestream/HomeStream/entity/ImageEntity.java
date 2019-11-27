@@ -55,6 +55,10 @@ public class ImageEntity extends MediaEntity {
         this.size = size;
     }
 
+    public ImageEntity(long id, ImageEntity Idless){
+        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getArtists(), Idless.getSize());
+    }
+
     /**
      * Returns the artists who have worked on this image
      * @return The artists who have worked on this image

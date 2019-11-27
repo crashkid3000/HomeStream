@@ -12,7 +12,7 @@ import java.util.List;
  * This class represents all music tracks
  * @author Justin Braack
  */
-public class MusicEntitiy extends MediaEntity{
+public class MusicEntity extends MediaEntity{
 
     private List<ArtistVO> artists;
     private LocalTime length;
@@ -32,7 +32,7 @@ public class MusicEntitiy extends MediaEntity{
      * @param artists Who performs in this song
      * @param length THe length of the song
      */
-    public MusicEntitiy(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
+    public MusicEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.artists = artists;
         this.length = length;
@@ -49,12 +49,16 @@ public class MusicEntitiy extends MediaEntity{
      * @param thumbnailName Where the thumbnail for this music file
      * @param tags The tags for this music piece
      * @param artists Who performs in this song
-     * @param length THe length of the song
+     * @param length The length of the song
      */
-    public MusicEntitiy(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
+    public MusicEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
         super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.artists = artists;
         this.length = length;
+    }
+
+    public MusicEntity(long id, MusicEntity idless){
+        this(id, idless.getName(), idless.getReleaseDate(), LocalDateTime.now(), idless.getFileName(), idless.getFileSize(), idless.getOwnedBy(), idless.getAccessibleBy(), idless.getThumbnailName(), idless.getTags(), idless.getArtists(), idless.getLength());
     }
 
     /**

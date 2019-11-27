@@ -2,7 +2,6 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.UserVO;
 
-import javax.management.relation.Role;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ import java.util.Objects;
  * A group of users that can/should access the same files in HomeStream
  * @author Justin Braack
  */
-public class RoleEntity implements IEntitiy{
+public class RoleEntity implements IEntity {
 
     private long id;
     private String name;

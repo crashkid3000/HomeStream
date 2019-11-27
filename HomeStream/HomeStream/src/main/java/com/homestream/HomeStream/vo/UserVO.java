@@ -37,6 +37,10 @@ public class UserVO implements IValueObject {
         this.password = password;
     }
 
+    public UserVO(long dbid, UserVO Idless){
+        this(dbid, Idless.getName(), Idless.getEmail(), Idless.getPassword());
+    }
+
     /**
      * Gets the name of the user
      * @return The name of the user
@@ -90,9 +94,6 @@ public class UserVO implements IValueObject {
         if(this.hashCode() != casted.hashCode()){
             return false;
         }
-        if(this.getDbid() != casted.getDbid()){
-            return false;
-        }
         if(!this.getEmail().equals(casted.getEmail())){
             return false;
         }
@@ -108,7 +109,7 @@ public class UserVO implements IValueObject {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dbid, name, email, password);
+        return Objects.hash(name, email, password);
     }
 
     @Override

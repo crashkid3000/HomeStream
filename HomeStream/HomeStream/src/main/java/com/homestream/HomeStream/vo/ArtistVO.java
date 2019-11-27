@@ -35,19 +35,22 @@ public class ArtistVO {
         this.bday = bday;
     }
 
+    public ArtistVO(long dbid, ArtistVO Idless){
+        this(dbid, Idless.getName(), Idless.getBday());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ArtistVO artistVO = (ArtistVO) o;
-        return dbid == artistVO.dbid &&
-                name.equals(artistVO.name) &&
+        return name.equals(artistVO.name) &&
                 bday.equals(artistVO.bday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dbid, name, bday);
+        return Objects.hash(name, bday);
     }
 
     @Override

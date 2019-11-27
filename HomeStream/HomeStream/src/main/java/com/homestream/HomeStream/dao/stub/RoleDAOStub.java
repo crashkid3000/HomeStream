@@ -1,12 +1,11 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IRoleDAO;
+import com.homestream.HomeStream.dao.IDAO;
 import com.homestream.HomeStream.entity.RoleEntity;
-import com.homestream.HomeStream.vo.UserVO;
 
 import java.util.*;
 
-public class RoleDAOStub implements IRoleDAO {
+public class RoleDAOStub implements IDAO<RoleEntity> {
 
 
     public RoleDAOStub(){
@@ -32,10 +31,10 @@ public class RoleDAOStub implements IRoleDAO {
     }
 
     @Override
-    public void delete(int id) {
-        RoleEntity e = getById(id);
-        if (null != e){
-            DBStub.roles.remove(e);
+    public void delete(long id) {
+        Optional<RoleEntity> e = getById(id);
+        if (e.isPresent()){
+            DBStub.roles.remove(e.get());
         }
     }
 
@@ -45,7 +44,8 @@ public class RoleDAOStub implements IRoleDAO {
     }
 
     @Override
-    public RoleEntity getById(long id) {
+    public Optional<RoleEntity> getById(long id) {
+        Optional<RoleEntity> retVal;
         int index = 0;
         while(index < DBStub.roles.size() && DBStub.roles.get(index).getId() != id){
             //index < DBStub.roles.size(): Cancellation statement; i.e. go out of the loop if we reached the end of the list
@@ -54,11 +54,12 @@ public class RoleDAOStub implements IRoleDAO {
         }
         if(index < DBStub.roles.size()){
             //We only get here if the second condition of the WHILE loop is true
-            return DBStub.roles.get(index);
+            retVal =  Optional.of(DBStub.roles.get(index));
         }
         else {
-            return null;
+            retVal = Optional.empty();
         }
+        return retVal;
     }
 
     @Override

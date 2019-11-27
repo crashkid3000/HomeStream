@@ -11,7 +11,7 @@ import java.util.Objects;
  * A template class that groups common properties for a media resource together
  * @author Justin Braack
  */
-public abstract class MediaEntity implements IEntitiy {
+public abstract class MediaEntity implements IEntity {
     private long id;
     private String name;
     private LocalDate releaseDate;
