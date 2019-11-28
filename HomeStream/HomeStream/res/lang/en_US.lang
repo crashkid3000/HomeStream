@@ -1,0 +1,12 @@
+VIDEO = Video
+IMAGE = Image
+MUSIC = Music
+
+MORE = More
+FILTER = Filter
+SEARCH = Search
+
+CONTENT_TITLE_LAST_UPLOADS = Last Uploads
+CONTENT_TITLE_LAST_STREAMS = Last Streams
+CONTENT_TITLE_FAVORITES = Favorites
+CONTENT_TITLE_SEARCH_RESULT = Search Result

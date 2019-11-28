@@ -1,0 +1,11 @@
+title: #TITLE 'Gallery'
+
+include: #ICON_CSS
+include: #MAIN_CSS
+include: #COLOR_CSS
+include: #CONTENT_CSS
+include: #NAVIGATION_CSS
+include: #BACKGROUND_CSS
+
+content: #LATEST_UPLOADS
+content: #SEARCH_RESULT
