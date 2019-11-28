@@ -14,16 +14,17 @@ public class Controller
      * Controller to interact with HTTP
      *
      * @author S. Schulze
-     * @last_update 7.11.19
+     * @last_update 14.11.19
      */
 
-    private HTML[] site = null;
+    private HTML[] html;
 
     {
         try {
 
-            site = new HTML[]
-                    {new HTML(".\\res\\scripts\\defaultStart.script")};
+            html = new HTML[] {
+                    new HTML(".\\res\\scripts\\defaultStart.script"),
+                    new HTML(".\\res\\scripts\\defaultGallery.script")};
 
         } catch (IOException e)
         {
@@ -31,22 +32,37 @@ public class Controller
         }
     }
 
+    // Request for Mainpage
     @RequestMapping("/")
     public String getStart()
-    { return site[0].get(); }
+    { return html[0].get(); }
 
-    @RequestMapping("/gallery")
-    public String getGallery() { return site[0].get(); }
+    // Request for all Pages bei ID
+    @RequestMapping("/{id}")
+    public String getGallery(@PathVariable("id") String id)
+    {
+        if(id.equalsIgnoreCase("gallery"))return html[1].get();
+        return html[0].get();
+    }
 
-    @RequestMapping("/gallery/{id}")
-    public String getGallery(@PathVariable("id") String id) { return site[0].get(); }
+    // Request for Content return
+    @RequestMapping("/content/{content}/{resolution}")
+    public String getContent(@PathVariable("content") String id, @PathVariable("resolution") byte resolution)
+    {
+        if(id.equalsIgnoreCase("LAST_UPLOAD"));
+        else if(id.equalsIgnoreCase("LAST_STREAM"));
 
-    @RequestMapping("/stream/{id}")
-    public String getPlayer(@PathVariable("id") String id)
-    { return site[0].get(); }
+        System.out.println(resolution);
 
-    @RequestMapping("/settings")
-    public String getConfig()
-    { return site[0].get(); }
+        return "" + resolution;
+    }
+
+    // Request Stream
+    @RequestMapping("/stream/{content}")
+    public String getStream(@PathVariable("content") String id)
+    {
+        return null;
+    }
+
 
 }

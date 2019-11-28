@@ -8,4 +8,8 @@ public class FileEndingException extends IOException
     {
         super("The File required '" + requiredEnding + "' as ending. Requested: '" + requestedEnding + "'");
     }
+    public FileEndingException(String requiredEnding)
+    {
+        super("The File required '" + requiredEnding + "' as ending.");
+    }
 }

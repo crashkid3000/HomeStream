@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="topnav topnavUP">
+            <a href="#home"><i class="fa fa-fw fa-upload"></i></a>
+    <a class="button" href="#home"><i class="fa fa-fw fa-film"></i> @VIDEO</a>
+    <a class="button" href="#services"><i class="fa fa-fw fa-image"></i> @IMAGE</a>
+    <a class="button" href="#clients"><i class="fa fa-fw fa-music"></i> @MUSIC</a>
+    <a href="#services"><i class="fa fa-fw fa-user-o"></i></a>
+  </div>
+  <div class="topnav topnavDOWN">
+            <a href="#clients"><i class="fa fa-fw fa-cog"></i></a>
+    <input type="text" placeholder="@SEARCH..."></input>
+    <a href="#contact"><i class="fa fa-fw fa-search"></i></a>
+  </div>
+</div>

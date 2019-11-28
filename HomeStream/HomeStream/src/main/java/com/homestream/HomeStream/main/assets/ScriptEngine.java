@@ -14,7 +14,7 @@ import java.util.Map;
 public class ScriptEngine
 {
     /**
-     * Class to to read '.script' Files
+     * Class to to read | write '.script' Files
      *
      * @author S. Schulze
      * @last_update 6.11.19
@@ -69,7 +69,6 @@ public class ScriptEngine
                 newExcist[newExcist.length - 1] = element[1];
 
                 for(int i = 0; i < excist.length; i++) newExcist[i] = excist[i];
-                for(String i : newExcist) System.out.println(i);
 
                 line.remove(key);
                 line.put(key, newExcist);
