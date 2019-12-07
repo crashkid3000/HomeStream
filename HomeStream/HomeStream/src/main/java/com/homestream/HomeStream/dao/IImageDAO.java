@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao;
 
-import com.homestream.HomeStream.dao.IMediaDAO;
 import com.homestream.HomeStream.entity.ImageEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 
