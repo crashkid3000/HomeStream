@@ -62,32 +62,44 @@ public class DBStub {
             __ownerAtomflick.add(artists.get(2));
             LinkedList<ArtistVO> __mainActorsCars = new LinkedList<ArtistVO>();
             __mainActorsCars.add(artists.get(4));
+            LinkedList<RoleEntity> __roleAtomflick = new LinkedList<>();
+            __roleAtomflick.add(roles.get(1));
+            LinkedList<RoleEntity> __roleCars = new LinkedList<>();
+            __roleCars.add(roles.get(0));
 
-            films.add(new FilmEntity(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), dataDir.toString() + "\\Csgo Atomflicc-1.m4v", 19281365, users.get(3), roles.get(1), null, new LinkedList<String>(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
-            films.add(new FilmEntity(1, "Cars (Music Video)", LocalDate.of(1999, 8, 28), LocalDateTime.now(), dataDir.toString() + "\\Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), roles.get(0), null, new LinkedList<String>(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
+            films.add(new FilmEntity(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), dataDir.toString() + "\\Csgo Atomflicc-1.m4v", 19281365, users.get(3), __roleAtomflick, null, new LinkedList<String>(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
+            films.add(new FilmEntity(1, "Cars (Music Video)", LocalDate.of(1999, 8, 28), LocalDateTime.now(), dataDir.toString() + "\\Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), __roleCars, null, new LinkedList<String>(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
         }
 
         if(null == musics){
             musics = new ArrayList<>();
             LinkedList<ArtistVO> __artistMonody = new LinkedList<>();
             LinkedList<ArtistVO> __artistGamma = new LinkedList<>();
+            LinkedList<RoleEntity> __roleMonody = new LinkedList<>();
+            LinkedList<RoleEntity> __roleGamma = new LinkedList<>();
             __artistMonody.add(artists.get(1));
             __artistMonody.add(artists.get(3));
             __artistGamma.add(artists.get(0));
+            __roleMonody.add(roles.get(1));
+            __roleGamma.add(roles.get(0));
 
-            musics.add(new MusicEntity(0, "Monody", LocalDate.of(2015, 11, 7), LocalDateTime.now(), dataDir.toString() + "\\TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), roles.get(1), dataDir.toString() + "\\defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, LocalTime.of(0, 4, 51)));
-            musics.add(new MusicEntity(1, "Gamma", LocalDate.of(1999, 1, 1), LocalDateTime.now(), dataDir.toString() + "\\Demolition Racer.m4a", 4395643, users.get(1), roles.get(0), dataDir.toString() + "\\demolition_racer.png", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
+            musics.add(new MusicEntity(0, "Monody", LocalDate.of(2015, 11, 7), LocalDateTime.now(), dataDir.toString() + "\\TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), __roleMonody, dataDir.toString() + "\\defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, LocalTime.of(0, 4, 51)));
+            musics.add(new MusicEntity(1, "Gamma", LocalDate.of(1999, 1, 1), LocalDateTime.now(), dataDir.toString() + "\\Demolition Racer.m4a", 4395643, users.get(1), __roleGamma, dataDir.toString() + "\\demolition_racer.png", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
         }
 
         if (null == images)
         {
             LinkedList<ArtistVO> __artistCk3k = new LinkedList<>();
             LinkedList<ArtistVO> __artistReddit = new LinkedList<>();
+            LinkedList<RoleEntity> __roleGRE = new LinkedList<>();
+            LinkedList<RoleEntity> __rolerPlace = new LinkedList<>();
             __artistCk3k.add(artists.get(2));
             __artistReddit.add(artists.get(5));
+            __roleGRE.add(roles.get(0));
+            __rolerPlace.add(roles.get(1));
 
-            images.add(new ImageEntity(0, "Global Retrowave Elite", LocalDate.of(2019, 9, 15), LocalDateTime.now(), dataDir.toString() + "\\gre_with_chrome_bl.png", 410376, users.get(3), roles.get(0), null, new LinkedList<String>(), __artistCk3k, new int[]{1000, 400}));
-            images.add(new ImageEntity(1, "rPlace", LocalDate.of(2017, 4, 3), LocalDateTime.now(), dataDir.toString() + "\\rPlace.png", 842435, users.get(2), roles.get(1), null, new LinkedList<String>(), __artistReddit, new int[]{4000, 4000}));
+            images.add(new ImageEntity(0, "Global Retrowave Elite", LocalDate.of(2019, 9, 15), LocalDateTime.now(), dataDir.toString() + "\\gre_with_chrome_bl.png", 410376, users.get(3), __roleGRE, null, new LinkedList<String>(), __artistCk3k, new int[]{1000, 400}));
+            images.add(new ImageEntity(1, "rPlace", LocalDate.of(2017, 4, 3), LocalDateTime.now(), dataDir.toString() + "\\rPlace.png", 842435, users.get(2), __rolerPlace, null, new LinkedList<String>(), __artistReddit, new int[]{4000, 4000}));
         }
 
 

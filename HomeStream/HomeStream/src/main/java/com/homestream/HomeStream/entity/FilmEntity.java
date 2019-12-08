@@ -33,7 +33,7 @@ public class FilmEntity extends MediaEntity {
      * @param sideActors The other actors in this movie
      * @param length How long it is
      */
-    public FilmEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
@@ -54,7 +54,7 @@ public class FilmEntity extends MediaEntity {
      * @param mainActors The main actors in this movie
      * @param sideActors The other actors in this movie
      */
-    public FilmEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.mainActors = mainActors;
         this.sideActors = sideActors;

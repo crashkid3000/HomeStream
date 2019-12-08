@@ -32,7 +32,7 @@ public class MusicEntity extends MediaEntity{
      * @param artists Who performs in this song
      * @param length THe length of the song
      */
-    public MusicEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
+    public MusicEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.artists = artists;
         this.length = length;
@@ -51,7 +51,7 @@ public class MusicEntity extends MediaEntity{
      * @param artists Who performs in this song
      * @param length The length of the song
      */
-    public MusicEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
+    public MusicEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalTime length) {
         super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.artists = artists;
         this.length = length;

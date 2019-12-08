@@ -19,7 +19,7 @@ public abstract class MediaEntity implements IEntity {
     private String fileName;
     private long fileSize;
     private UserVO ownedBy;
-    private RoleEntity accessibleBy;
+    private List<RoleEntity> accessibleBy;
     private String thumbnailName;
     private List<String> tags;
 
@@ -36,7 +36,7 @@ public abstract class MediaEntity implements IEntity {
      * @param thumbnailName Where this media piece's thumbnail lies in teh file system
      * @param tags The tags assigned to this media piece
      */
-    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags) {
+    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -60,7 +60,7 @@ public abstract class MediaEntity implements IEntity {
      * @param thumbnailName Where this media piece's thumbnail lies in teh file system
      * @param tags The tags assigned to this media piece
      */
-    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags) {
+    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags) {
         this.id = -1;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -144,7 +144,7 @@ public abstract class MediaEntity implements IEntity {
      */
     public void setFileName(String fileName) {
         this.fileName = fileName;
-        this.lastUpdated = LocalDateTime.now();
+        this.setLastUpdated();
     }
 
     /**
@@ -169,14 +169,14 @@ public abstract class MediaEntity implements IEntity {
      */
     public void setOwnedBy(UserVO ownedBy) {
         this.ownedBy = ownedBy;
-        this.lastUpdated = LocalDateTime.now();
+        this.setLastUpdated();
     }
 
     /**
      * Returns which group of users can access this media piece
      * @return Which group of users can access this media piece
      */
-    public RoleEntity getAccessibleBy() {
+    public List<RoleEntity> getAccessibleBy() {
         return accessibleBy;
     }
 
@@ -184,9 +184,9 @@ public abstract class MediaEntity implements IEntity {
      * Update the group of users which can access this media piece. Automatically updates the <code>lastUpdated</code> as well.
      * @param accessibleBy The updated <code>RoleEntitiy</code> that can access this media piece
      */
-    public void setAccessibleBy(RoleEntity accessibleBy) {
+    public void setAccessibleBy(List<RoleEntity> accessibleBy) {
         this.accessibleBy = accessibleBy;
-        this.lastUpdated = LocalDateTime.now();
+        this.setLastUpdated();
     }
 
     /**
@@ -203,7 +203,7 @@ public abstract class MediaEntity implements IEntity {
      */
     public void setThumbnailName(String thumbnailName) {
         this.thumbnailName = thumbnailName;
-        this.lastUpdated = LocalDateTime.now();
+        this.setLastUpdated();
     }
 
     /**
@@ -220,7 +220,7 @@ public abstract class MediaEntity implements IEntity {
      */
     public void setTags(List<String> tags) {
         this.tags = tags;
-        this.lastUpdated = LocalDateTime.now();
+        this.setLastUpdated();
     }
 
     @Override

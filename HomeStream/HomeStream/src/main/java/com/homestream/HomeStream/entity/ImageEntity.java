@@ -31,7 +31,7 @@ public class ImageEntity extends MediaEntity {
      * @param artists The artists who created this imgae (artist/photographer/...)
      * @param size The size dimensions of this image (<code>[0]</code>:width; <code>[1]</code>: height)
      */
-    public ImageEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, int[] size) {
+    public ImageEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, int[] size) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
         this.artists = artists;
         this.size = size;
@@ -49,7 +49,7 @@ public class ImageEntity extends MediaEntity {
      * @param artists The artists who created this imgae (artist/photographer/...)
      * @param size The size dimensions of this image (<code>[0]</code>:width; <code>[1]</code>: height)
      */
-    public ImageEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, RoleEntity accessibleBy, List<String> tags, List<ArtistVO> artists, int[] size) {
+    public ImageEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, int[] size) {
         super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, fileName, tags);
         this.artists = artists;
         this.size = size;
