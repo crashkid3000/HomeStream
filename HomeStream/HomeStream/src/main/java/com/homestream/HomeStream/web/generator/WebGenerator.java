@@ -23,7 +23,7 @@ public class WebGenerator
     ScriptEngine script = new ScriptEngine();
 
 
-    public String generate(String scriptFile)
+    public String generate(String scriptFile, boolean statics)
     {
         File file = new File(scriptFile);
         try {
@@ -36,26 +36,34 @@ public class WebGenerator
 
         String out = null;
         try {
-            out = write();
+            out = write(statics);
         } catch (ScriptFormatException e) {
             e.printStackTrace();
         }
         return out;
     }
 
-    private String write() throws ScriptFormatException {
+    private String write(boolean statics) throws ScriptFormatException {
         String out = "";
 
         out += "<!DOCTYPE html>\n";
         out += "<html>\n";
         out += "<head>\n";
+
         out += decrypt("title:", "include:");
-        out += getJS("#MAIN_JS");
+
         out += "</head>\n";
         out += "<body>\n";
-        out += getContent("#NAVIGATION");
-        out += getContent("#HEAD");
-        out += decrypt("content:");
+
+        if (statics) out += getContent("#HEAD");
+        if (!statics) out += getContent("#AUDIOHEAD");
+        if (statics) out += "<div class=\"boxFirst\">";
+        if (statics) out += getContent("#NAVIGATION");
+        if (statics) out += decrypt("content:");
+        if (statics) out += "</div>";
+
+        out += getJS("#MAIN_JS");
+        out += getJS("#CONTENT_JS");
         out += "</body>\n";
         out += "</html>\n";
 
@@ -86,16 +94,7 @@ public class WebGenerator
                         {
                             tags.add(i);
 
-                            if(firstElement)
-                            {
-                                out += "<div class=\"box boxFirst\">";
-                                firstElement = false;
-                            }
-                            else out += "<div class=\"box\">";
-
                             out += getContent(i);
-
-                            out += "</div>";
                         }
                 }
             }
@@ -105,18 +104,6 @@ public class WebGenerator
             }
         }
         return out;
-    }
-
-    private String getVelue(String element, String parameter)
-    {
-        String[] items;
-        if(element.startsWith(parameter))
-        {
-            items = element.split("=");
-            return items[1].replace("'","");
-        }
-
-        return null;
     }
 
     public String[] getTags()
@@ -146,6 +133,7 @@ public class WebGenerator
     private String getJS(String item)
 {
     if(item.endsWith("MAIN_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.MAIN_JS + "\">\n</script>";
+    if(item.endsWith("CONTENT_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.CONTENT_JS + "\">\n</script>";
     else return null;
 }
 
@@ -154,6 +142,8 @@ public class WebGenerator
         {
             case "#HEAD":
                 return Properties.CONTENT_TITLE[0].get();
+            case "#AUDIOHEAD":
+                return Properties.AUDIO_TITLE[0].get();
             case "#NAVIGATION":
                 return Properties.CONTENT_NAVIGATION[0].get();
             case "#LATEST_UPLOADS":
@@ -161,6 +151,8 @@ public class WebGenerator
             case "#FAVORITES":
             case "#SEARCH_RESULT":
                 return Properties.CONTENT_ELEMENT[0].get();
+            case "#FOOT":
+                return Properties.FOOT.get();
             default:
                 throw new ScriptFormatException(item);
         }

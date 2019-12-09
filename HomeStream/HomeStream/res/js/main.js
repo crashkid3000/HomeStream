@@ -18,7 +18,7 @@ function ggt(a,b)
      sr = (sw / a) + ":" + (sh / a);
         var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         main.innerHTML = parseInt((w / sw) * 10);
-  }
+}
 
 
 if(state == 1)

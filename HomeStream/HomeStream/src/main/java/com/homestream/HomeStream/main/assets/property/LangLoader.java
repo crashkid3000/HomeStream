@@ -11,7 +11,15 @@ import java.util.Map;
 
 public class LangLoader
 {
+    /**
+     * Class to load .lang Files
+     *
+     * @author S. Schulze
+     * @last_update 15.11.19
+     */
+
     Loader loader = new Loader();
+
     private File lang, defaultLang;
     private static Map<String, String> data = new HashMap<>();
 
@@ -19,7 +27,6 @@ public class LangLoader
 
         try
         {
-            System.out.println("latex");
             defaultLang = new File("./res/lang/en_US.lang");
             lang = new File("./res/lang/" + Properties.LANG + ".lang");
 
@@ -27,7 +34,6 @@ public class LangLoader
             if(!lang.exists()) throw new FileNotFoundException("Language File '" + lang.getName() + "' not found");
 
             read();
-            System.out.println("latex");
         }catch(IOException e)
         {
             e.printStackTrace();

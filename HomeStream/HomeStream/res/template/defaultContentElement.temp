@@ -1,6 +1,34 @@
-<div class="boxTitle">
-    <h2 class="center">@CONTENT_TITLE</h2>
-    <h3 class="right"><a href="#services">@MORE &#187;</a></h3>
-    <div class="list" onload="myFunction(@CONTENT_ID)">
+<h2 class="center" id="@CONTENT_ID">@CONTENT_TITLE</h2>
+<h3 class="right"><a href="#services">@MORE &#187;</a></h3>
+<div class="list BOTTOM_SMAL">
+    <div class="cover">
+<img name="cover" src="img/2968420-l.jpg">
+        <div name="coverText">
+            <h2 name="coverText">#TITLE</h2>
+        </div>
+    </div>
+    <div class="cover">
+<img name="cover" src="img/0093624950486.jpg">
+        <div name="coverText">
+            <h2 name="coverText">#TITLE</h2>
+        </div>
+    </div>
+    <div class="cover">
+<img name="cover" src="img/Rammstein-Rammstein-Cover-Artwork-600x600.jpg">
+        <div name="coverText">
+            <h2 name="coverText"2>#TITLE</h2>
+        </div>
+    </div>
+    <div class="cover">
+<img name="cover" src="img/Rammstein-Rammstein-Cover-Artwork-600x600.jpg">
+        <div name="coverText">
+            <h2 name="coverText">#TITLE</h2>
+        </div>
+    </div>
+    <div class="cover">
+<img name="cover" src="img/Rammstein-Rammstein-Cover-Artwork-600x600.jpg">
+        <div name="coverText">
+            <h2 name="coverText">#TITLE</h2>
+        </div>
     </div>
 </div>

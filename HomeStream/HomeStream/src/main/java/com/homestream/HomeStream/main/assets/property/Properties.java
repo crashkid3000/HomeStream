@@ -56,14 +56,24 @@ public class Properties
 
     private static final String JS_PATH = "js/";
     public static final String MAIN_JS = JS_PATH + "main.js";
+    public static final String CONTENT_JS = JS_PATH + "content.js";
 
     private static final String TEMP_PATH = "./res/template/";
     public static final TEMP[] CONTENT_NAVIGATION = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultNav")};
     public static final TEMP[] CONTENT_TITLE = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultTitle")};
+    public static final TEMP[] AUDIO_TITLE = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultAudioTitle")};
     public static final TEMP[] CONTENT_ELEMENT = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultContentElement")};
     public static final TEMP[] CONTENT_ALL = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultContentAll")};
+
+    public static final TEMP FOOT = new TEMP(TEMP_PATH + "foot");
+
+    public static final String CONTENT_TITLE_LAST_UPLOADS_ID = "LAST_UPLOAD";
+    public static final String CONTENT_TITLE_LAST_STREAMS_ID = "LAST_STREAM";
+    public static final String CONTENT_TITLE_FAVORITES_ID = "FAVORITES";
+    public static final String CONTENT_TITLE_SEARCH_RESULT_ID = "RESULT";
 }

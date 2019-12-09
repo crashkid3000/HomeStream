@@ -11,6 +11,11 @@ a
   color: black;
 }
 
+.BOTTOM_SMAL
+{
+  margin-bottom: 4em;
+}
+
 .boxTitle {
   position: absolute;
   margin-top: 20px;
