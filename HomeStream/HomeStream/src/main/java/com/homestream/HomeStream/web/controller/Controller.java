@@ -1,6 +1,7 @@
 package com.homestream.HomeStream.web.controller;
 
 import com.homestream.HomeStream.web.assets.HTML;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +24,10 @@ public class Controller
         try {
 
             html = new HTML[] {
-                    new HTML(".\\res\\scripts\\defaultStart.script"),
-                    new HTML(".\\res\\scripts\\defaultGallery.script")};
+                    new HTML(".\\res\\scripts\\defaultStart.script", true),
+                    new HTML(".\\res\\scripts\\defaultGallery.script", true),
+                    new HTML(".\\res\\scripts\\defaultMusic.script", false),
+                    new HTML(".\\res\\scripts\\defaultPlayer.script", false)};
 
         } catch (IOException e)
         {
@@ -42,26 +45,8 @@ public class Controller
     public String getGallery(@PathVariable("id") String id)
     {
         if(id.equalsIgnoreCase("gallery"))return html[1].get();
+        if(id.startsWith("player")) return html[2].get();
         return html[0].get();
-    }
-
-    // Request for Content return
-    @RequestMapping("/content/{content}/{resolution}")
-    public String getContent(@PathVariable("content") String id, @PathVariable("resolution") byte resolution)
-    {
-        if(id.equalsIgnoreCase("LAST_UPLOAD"));
-        else if(id.equalsIgnoreCase("LAST_STREAM"));
-
-        System.out.println(resolution);
-
-        return "" + resolution;
-    }
-
-    // Request Stream
-    @RequestMapping("/stream/{content}")
-    public String getStream(@PathVariable("content") String id)
-    {
-        return null;
     }
 
 

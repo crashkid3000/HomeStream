@@ -1,4 +1,4 @@
-title: #TITLE 'Gallery'
+title: #TITLE
 
 include: #ICON_CSS
 include: #MAIN_CSS
@@ -7,4 +7,4 @@ include: #CONTENT_CSS
 include: #NAVIGATION_CSS
 include: #BACKGROUND_CSS
 
-content: #SEARCH_RESULT
+content: #MUSIC

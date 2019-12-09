@@ -20,11 +20,11 @@ public class HTML
     String tags[];
     WebGenerator generator = new WebGenerator();
 
-    public HTML(String file) throws IOException
+    public HTML(String file, boolean statics) throws IOException
     {
         if(file.endsWith(".script"))
         {
-            data = generator.generate(file);
+            data = generator.generate(file,statics);
             tags = generator.getTags();
         }
         else throw new FileEndingException(".script");
@@ -43,6 +43,7 @@ public class HTML
         out = replaceAll(out,"@IMAGE", Lang.IMAGE);
         out = replaceAll(out,"@MUSIC", Lang.MUSIC);
         out = replaceAll(out,"@SEARCH", Lang.SEARCH);
+        out = replaceAll(out,"@UPDATE_LOG", Lang.UPDATE_LOG);
 
         for(String item : tags)out = replaceFirst(out, item);
 
@@ -61,13 +62,13 @@ public class HTML
         switch (target)
         {
             case "#LATEST_UPLOADS":
-                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_LAST_UPLOADS);
+                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_LAST_UPLOADS).replaceFirst("@CONTENT_ID", Properties.CONTENT_TITLE_LAST_UPLOADS_ID);
             case "#LATEST_STREAMS":
-                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_LAST_STREAMS);
+                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_LAST_STREAMS).replaceFirst("@CONTENT_ID", Properties.CONTENT_TITLE_LAST_STREAMS_ID);
             case "#FAVORITES":
-                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_FAVORITES);
+                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_FAVORITES).replaceFirst("@CONTENT_ID", Properties.CONTENT_TITLE_FAVORITES_ID);
             case "#SEARCH_RESULT":
-                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_SEARCH_RESULT);
+                return source.replaceFirst("@CONTENT_TITLE", Lang.CONTENT_TITLE_SEARCH_RESULT).replaceFirst("@CONTENT_ID", Properties.CONTENT_TITLE_SEARCH_RESULT_ID);
             default:
                 return source;
         }

@@ -1,17 +1,23 @@
 /* Position the navbar container inside the image */
 .container {
   position: fixed;
-  margin: 20px;
+  margin: 1.6em;
   margin-top: -2.9em;
   left: 50%;
   transform: translate(-50%);
-  width: auto;
+  width: 32.5em;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 2px;
 
   transition: 0.5s ease;
 
   z-index: 10;
+}
+
+.nav
+{
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .container:hover {
@@ -21,12 +27,15 @@
 .containerPlayer {
   position: fixed;
   margin: 20px;
-  top: 100%;
+  margin-bottom: 0;
+  bottom: 0;
   left: 50%;
-  transform: translate(-50%, -150%);
-  width: auto;
+  transform: translate(-50%);
+  width: 90%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 2px;
+
+  transition: 0.5s ease;
 
   z-index: 10;
 }
@@ -46,21 +55,24 @@
 .topnavUP {
   overflow: hidden;
   background-color: #3339;
+
+  border-top-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
 }
 .topnavDOWN {
   overflow: hidden;
   background-color: #3339;
 
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
 }
 
 /* Navbar links */
-.topnav a, .topnav input{
+.topnav a, .text-blockPlayer-Controle a, .topnav input{
   float: left;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 1em;
   text-decoration: none;
   font-size: 17px;
 }
@@ -70,10 +82,10 @@
   background-color: #3330;
   border: 0;
   border-bottom: solid;
-  width: 344px;
+  width: 20em;
   height: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .topnav a:hover {
@@ -83,5 +95,5 @@
 
 .button
 {
-  width: 100px;
+  width: 6em;
 }

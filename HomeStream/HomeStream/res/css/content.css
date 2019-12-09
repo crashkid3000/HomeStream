@@ -10,24 +10,156 @@
   position: fixed;
 }
 
-img
+.ICONS
 {
-  box-shadow: 0;
-  margin: 1vh 0.5vw;
-  width: 18vw;
+  margin: 1em 0.5em;
+  width: 16em;
+  height: 8em;
 
-  -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(50%);
+  border-radius: 0.25em;
+    transition: 0.5s ease;
+}
+
+.ICONS h1
+{
+  position: relative;
+
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin-left: 0.25em;
+  top: -4em;
+
+  width: 100%;
+
+  text-align: center;
+}
+
+.img_ICONS
+{
+  width: 16em;
+  height: 8em;
+
+  -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(75%);
+  box-shadow: 0;
 
   transition: 0.5s ease;
 }
 
-.element:hover img
+.ICONS:hover .img_ICONS
 {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.6);
+  margin-top: 0em;
 
-  -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(0%);
+  -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+.ICONS:hover
+{
+  margin-top: 0.7em;
+}
+
+img
+{
+  box-shadow: 0;
+}
+.coverplayer img
+{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+
+  border-radius: 0.25em;
+}
+
+.cover
+{
+  box-shadow: 0;
+
+  margin: 0.5em;
+  border-radius: 0.25em;
+
+  transition: 0.5s ease;
+}
+
+.cover:hover
+{
+  margin-top: 0;
+}
+
+.cover img
+{
+
+border-radius: 0.25em;
+  box-shadow: 0;
+  transition: 0.5s ease;
+
+  -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(75%);
+}
+.cover:hover img
+{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+
+  -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0);
+}
+.coverplayer div
+{
+  background-color: #111b;
+
+  color: white;
+
+  position: absolute;
+
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+
+  width: 16em;
+
+  text-align: center;
+
+  border-radius: 0;
+  opacity: 1;
+  top: 4em;
+}
+.cover div
+{
+  background-color: #111b;
+  border-radius: 0.25em;
+
+  color: white;
+
+  position: absolute;
+
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+
+  width: 16em;
+
+  top: 1em;
+
+  opacity: 0;
+
+  text-align: center;
+
+  transition: 0.5s ease;
+}
+
+.cover:hover div
+{
+  border-radius: 0;
+  opacity: 1;
+  top: 5em;
+}
+
+audio
+{
+  left: 0;
+  margin: 0;
+
+  position: absolute;
+
+  border-bottom-left-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
 }
 
 .list
@@ -39,16 +171,55 @@ img
   transform: translate(-50%);
 }
 
-.element
+.separateLeft
 {
-  position: relative;
+  color: gray;
+  border-left: dotted;
+}
+
+.separateRight
+{
+  color: gray;
+  border-right: dotted;
+}
+
+.list a
+{
+  color: gray;
+  margin: 0.5em;
+
+  transition: 0.5s ease;
+}
+
+.list a:hover
+{
+  color: black;
 }
 
 .text-block {
   position: absolute;
-  bottom: 10%;
   left: 50%;
+  bottom: 45%;
   transform: translate(-50%);
+
+  width: 70%;
+  opacity: 1;
+
+  background-color: #000b;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  transition: 0.5s ease;
+
+  text-align: center;
+}
+
+.text-blockPlayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 
   width: 70%;
   opacity:  0;
@@ -63,17 +234,32 @@ img
   text-align: center;
 }
 
-.element:hover .text-block
+.text-blockPlayer-Controle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+  width: 70%;
+
+  background-color: #000b;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  text-align: center;
+}
+
+.element:hover .text-block, .element:hover .text-blockPlayer
 {
   opacity: 1;
 }
 
 
+
 .sideFoot
 {
-  position: absolute;
   margin: 20px;
-  top: 60%;
   transform: translate(0, -75%);
   width: auto;
 }
@@ -85,16 +271,12 @@ img
 
 .footList li
 {
-  position: relative;
-
   float:left;
   padding-right: 8%;
   list-style-type: none;
 }
 .footContent
 {
-  position: relative;
-  top: 10%;
 
   padding: 0.5%;
 }

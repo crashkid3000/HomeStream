@@ -1,0 +1,14 @@
+<div class="parallaxPlayer">
+    <div class="sideTitle center">
+        <div class="coverplayer">
+            <img name="cover" src="img/Rammstein-Rammstein-Cover-Artwork-600x600.jpg">
+            <div name="coverText">
+                <h2 name="coverText">#TITLE</h2>
+                <h4 name="coverText">#AUTHOR</h4>
+            </div>
+
+            <audio name="coverPlayer" id="audio_with_controls" controls type="audio/mp3"
+            src="content/test.mp3"></audio>
+        </div>
+    </div>
+</div>

@@ -16,15 +16,16 @@
 
   z-index: -1;
 }
+.parallaxPlayer {
+  /* The image used */
+  background-color: #333;
 
-.box
-{
-  background-color: #fff;
+  /* Set a specific height */
+  min-height: 100%;
 
-  height: 52vh;
-  width: 100%;
+  position: relative;
 
-  padding-bottom: 2%;
+  z-index: 0;
 }
 
 .playerBack
@@ -35,16 +36,8 @@
 
 .boxFirst
 {
+  background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.6);
-}
 
-.foot
-{
-  margin-top: 4%;
-
-  background-color: #eee;
-  position: relative;
-
-  min-height: 15%;
-  width: 100%;
+  max-width: 100%;
 }
