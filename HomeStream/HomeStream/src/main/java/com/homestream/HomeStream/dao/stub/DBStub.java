@@ -89,6 +89,7 @@ public class DBStub {
 
         if (null == images)
         {
+            images = new ArrayList<>();
             LinkedList<ArtistVO> __artistCk3k = new LinkedList<>();
             LinkedList<ArtistVO> __artistReddit = new LinkedList<>();
             LinkedList<RoleEntity> __roleGRE = new LinkedList<>();

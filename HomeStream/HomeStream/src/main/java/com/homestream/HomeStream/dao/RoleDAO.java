@@ -3,6 +3,7 @@ package com.homestream.HomeStream.dao;
 import com.homestream.HomeStream.entity.RoleEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RoleDAO implements IDAO<RoleEntity> {
     @Override
@@ -26,7 +27,7 @@ public class RoleDAO implements IDAO<RoleEntity> {
     }
 
     @Override
-    public RoleEntity getById(long id) {
+    public Optional<RoleEntity> getById(long id) {
         return null;
     }
 
