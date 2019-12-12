@@ -18,7 +18,10 @@
 }
 .parallaxPlayer {
   /* The image used */
-  background-color: #333;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
 
   /* Set a specific height */
   min-height: 100%;
