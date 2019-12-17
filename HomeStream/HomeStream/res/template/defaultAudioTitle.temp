@@ -1,0 +1,14 @@
+<div class="parallaxPlayer" style="background-image: url('data/@COVER_TN');">
+    <div class="sideTitle center">
+        <div class="coverplayer">
+            <img name="cover" src="data/@COVER_TN">
+            <div name="coverText">
+                <h2 name="coverText">@COVER_TITLE</h2>
+            </div>
+
+            <audio controls autoplay name="coverPlayer" id="audio_with_controls">
+                <source  type="audio/mp3" src="data/@DATA">
+            </audio>
+        </div>
+    </div>
+</div>
