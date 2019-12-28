@@ -1,3 +1,4 @@
+<<<<<<<HEAD
 package com.homestream.HomeStream.main;
 
 import com.homestream.HomeStream.dao.stub.FilmDAOStub;
@@ -66,5 +67,3 @@ public class RequestHandler {
         log("file already exists");
 
     }
-
-}
