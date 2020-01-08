@@ -2,6 +2,7 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.UserVO;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,10 +10,17 @@ import java.util.Objects;
  * A group of users that can/should access the same files in HomeStream
  * @author Justin Braack
  */
+@Entity
+@Table(name="Role")
 public class RoleEntity implements IEntity {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="ID")
     private long id;
     private String name;
+    @OneToMany //(mappedBy="User") -- müssen wir ggf noch anfügen
+    @JoinColumn(name="Role_ID")
     private List<UserVO> users;
 
     /**
@@ -40,6 +48,10 @@ public class RoleEntity implements IEntity {
 
     public RoleEntity(long id, RoleEntity roleIdless){
         this(id, roleIdless.getName(), roleIdless.getUsers());
+    }
+
+    protected RoleEntity(){
+
     }
 
     /**

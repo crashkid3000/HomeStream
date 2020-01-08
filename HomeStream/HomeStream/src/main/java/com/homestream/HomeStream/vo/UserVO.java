@@ -1,27 +1,25 @@
 package com.homestream.HomeStream.vo;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * Represents a user of HomeStream
  * @author JustinBraack
  */
+@Entity
+@Table(name="User")
 public class UserVO implements IValueObject {
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="ID")
     private long dbid;
+    @Column(name="name")
     private String name;
+    @Column(name="email")
     private String email;
+    @Column(name="password")
     private String password;
-
-    /**
-     * Initialize with default values. Shall only be used by <code>clone()</code>
-     */
-    private UserVO() {
-        this.dbid = -1;
-        this.name = "";
-        this.email = "";
-        this.password = "";
-    }
 
     /**
      * Creates a new user of HomeStream
@@ -39,6 +37,10 @@ public class UserVO implements IValueObject {
 
     public UserVO(long dbid, UserVO Idless){
         this(dbid, Idless.getName(), Idless.getEmail(), Idless.getPassword());
+    }
+
+    protected UserVO(){
+
     }
 
     /**
@@ -124,11 +126,7 @@ public class UserVO implements IValueObject {
 
     @Override
     public Object clone() {
-        UserVO clone = new UserVO();
-        clone.dbid = this.getDbid();
-        clone.email = this.getName();
-        clone.name = this.getName();
-        clone.password = this.getPassword();
+        UserVO clone = new UserVO(this.getDbid(), this.getName(), this.getEmail(), this.getPassword());
         return clone;
     }
 

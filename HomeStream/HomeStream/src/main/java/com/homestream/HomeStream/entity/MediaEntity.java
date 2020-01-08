@@ -2,6 +2,7 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.UserVO;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,17 +12,37 @@ import java.util.Objects;
  * A template class that groups common properties for a media resource together
  * @author Justin Braack
  */
+@Inheritance(strategy=InheritanceType.JOINED) //Creates a separate table for this, and all subclasses
+@Entity
+@Table(name="Media")
 public abstract class MediaEntity implements IEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID")
     private long id;
     private String name;
+    @Temporal(TemporalType.DATE)
     private LocalDate releaseDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastUpdated;
     private String fileName;
     private long fileSize;
+    @OneToOne
+    @JoinColumn(name="User_ID")
     private UserVO ownedBy;
+    @ManyToMany
+    @JoinTable(name="__MediaRoleTable",
+        joinColumns = @JoinColumn(name="Role_ID"),
+        inverseJoinColumns = @JoinColumn(name="Media_ID")
+    )
+    @JoinColumn(name="ID")
     private List<RoleEntity> accessibleBy;
     private String thumbnailName;
     private List<String> tags;
+    @Temporal(TemporalType.DATE)
+    private LocalDate uploadedOn;
+    @Temporal(TemporalType.DATE)
+    private LocalDate lastStreamed;
 
     /**
      * Creates a new MediaEntity template
@@ -35,8 +56,10 @@ public abstract class MediaEntity implements IEntity {
      * @param accessibleBy By whom this pecia piece can be accessed by
      * @param thumbnailName Where this media piece's thumbnail lies in teh file system
      * @param tags The tags assigned to this media piece
+     * @param uploadedOn When this file was uploaded to the server
+     * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags) {
+    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -47,6 +70,8 @@ public abstract class MediaEntity implements IEntity {
         this.accessibleBy = accessibleBy;
         this.thumbnailName = thumbnailName;
         this.tags = tags;
+        this.uploadedOn = uploadedOn;
+        this.lastStreamed = lastStreamed;
     }
 
     /**
@@ -59,8 +84,10 @@ public abstract class MediaEntity implements IEntity {
      * @param accessibleBy By whom this pecia piece can be accessed by
      * @param thumbnailName Where this media piece's thumbnail lies in teh file system
      * @param tags The tags assigned to this media piece
+     * @param uploadedOn When this file was uploaded to the server
+     * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags) {
+    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed) {
         this.id = -1;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -71,6 +98,13 @@ public abstract class MediaEntity implements IEntity {
         this.accessibleBy = accessibleBy;
         this.thumbnailName = thumbnailName;
         this.tags = tags;
+        this.uploadedOn = uploadedOn;
+        this.lastStreamed = lastStreamed;
+    }
+
+    protected MediaEntity()
+    {
+
     }
 
     /**
@@ -212,6 +246,35 @@ public abstract class MediaEntity implements IEntity {
      */
     public List<String> getTags() {
         return tags;
+    }
+
+    /**
+     * Returns when this media was uploaded to the server
+     * @return When this media was uploaded to the server
+     */
+    public LocalDate getUploadedOn() { return uploadedOn; }
+
+    /**
+     * Updates when the file was uploaded to the server
+     * @param uploadedOn when this media was uploaded to the server
+     */
+    public void setUploadedOn(LocalDate uploadedOn) {
+        this.uploadedOn = uploadedOn;
+        this.setLastUpdated();
+    }
+
+    /**
+     * Returns when this media was last streamed
+     * @return When this media was last streamed
+     */
+    public LocalDate getLastStreamed() { return lastStreamed; }
+
+    /**
+     * Updates when this media was last streamed. <i>Does not refresh the <code>lastChanged</code> property</i>
+     * @param lastStreamed when this media was last streamed
+     */
+    public void setLastStreamed(LocalDate lastStreamed) {
+        this.lastStreamed = lastStreamed;
     }
 
     /**

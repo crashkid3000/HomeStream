@@ -2,7 +2,9 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
+import jdk.vm.ci.meta.Local;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,10 +14,23 @@ import java.util.List;
  * An entity that represents everything between a homemade film to a blockbuster movie
  * @author Justin Braack
  */
+@Entity
+@Table(name="Film")
 public class FilmEntity extends MediaEntity {
 
+    @ManyToMany
+    @JoinTable(name="__FilmMainActorTable",
+        joinColumns = @JoinColumn(name="Artist_ID"),
+        inverseJoinColumns = @JoinColumn(name="Film_ID"))
+    @JoinColumn(name="ID")
     private List<ArtistVO> mainActors;
+    @ManyToMany
+    @JoinTable(name="__FilmSideActorTable",
+        joinColumns = @JoinColumn(name="Artist_ID"),
+        inverseJoinColumns = @JoinColumn(name="Film_ID"))
+    @JoinColumn(name="ID")
     private List<ArtistVO> sideActors;
+    @Temporal(TemporalType.TIME)
     private LocalTime length;
 
     /**
@@ -29,12 +44,14 @@ public class FilmEntity extends MediaEntity {
      * @param accessibleBy Which role can access this film/movie?
      * @param thumbnailName Where in the file system is the thumbnail for this?
      * @param tags The tags for this
+     * @param uploadedOn When the media was uploaded to the server
+     * @param lastStreamed When the media was last streamed
      * @param mainActors The main actors in this movie
      * @param sideActors The other actors in this movie
      * @param length How long it is
      */
-    public FilmEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
-        super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
+    public FilmEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+        super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, uploadedOn, lastStreamed);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
         this.length = length;
@@ -50,19 +67,24 @@ public class FilmEntity extends MediaEntity {
      * @param accessibleBy Which role can access this film/movie?
      * @param thumbnailName Where in the file system is the thumbnail for this?
      * @param tags The tags for this
+     * @param lastStreamed When the media was last streamed
      * @param length How long it is
      * @param mainActors The main actors in this movie
      * @param sideActors The other actors in this movie
      */
-    public FilmEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
-        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
+    public FilmEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate lastStreamed, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, LocalDate.now(), lastStreamed);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
         this.length = length;
     }
 
     public FilmEntity(long id, FilmEntity Idless){
-        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getMainActors(), Idless.getSideActors(), Idless.getLength());
+        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getUploadedOn(), Idless.getLastStreamed(), Idless.getMainActors(), Idless.getSideActors(), Idless.getLength());
+    }
+
+    protected FilmEntity() {
+
     }
 
     /**
