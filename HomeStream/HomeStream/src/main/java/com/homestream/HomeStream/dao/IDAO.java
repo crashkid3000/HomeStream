@@ -1,5 +1,7 @@
 package com.homestream.HomeStream.dao;
 
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,13 @@ public interface IDAO<T> {
      * @return the same entity as before, but with an updated <code>id</code>
      */
     T create(T Idless);
+
+    /**
+     * Updates a given object with new information. If the object could not be found in the persistence layer, an <code>IdNotFoundException</code> is thrown.
+     * @param updated The new object wih updated data
+     * @throws IdNotFoundException Whenever the ID of the <code>updated</code> could not be found in the persistence layer
+     */
+    void update(T updated) throws IdNotFoundException;
 
     /**
      * Deletes the specified item from the persistence layer

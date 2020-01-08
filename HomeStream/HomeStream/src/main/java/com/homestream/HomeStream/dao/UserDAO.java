@@ -1,5 +1,6 @@
 package com.homestream.HomeStream.dao;
 
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.UserVO;
 
 import java.util.List;
@@ -10,6 +11,11 @@ public class UserDAO implements IDAO<UserVO> {
     @Override
     public UserVO create(UserVO Idless) {
         return null;
+    }
+
+    @Override
+    public void update(UserVO updated) throws IdNotFoundException {
+
     }
 
     @Override

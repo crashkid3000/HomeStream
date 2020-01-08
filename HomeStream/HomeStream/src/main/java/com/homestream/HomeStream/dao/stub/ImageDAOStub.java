@@ -71,6 +71,11 @@ public class ImageDAOStub implements IImageDAO {
     }
 
     @Override
+    public void update(ImageEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
+    }
+
+    @Override
     public void delete(ImageEntity toBeDeleted) {
         DBStub.images.remove(toBeDeleted);
     }

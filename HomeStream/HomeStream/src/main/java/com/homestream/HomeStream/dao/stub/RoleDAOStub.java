@@ -26,6 +26,11 @@ public class RoleDAOStub implements IDAO<RoleEntity> {
     }
 
     @Override
+    public void update(RoleEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
+    }
+
+    @Override
     public void delete(RoleEntity toBeDeleted) {
         DBStub.roles.remove(toBeDeleted);
     }

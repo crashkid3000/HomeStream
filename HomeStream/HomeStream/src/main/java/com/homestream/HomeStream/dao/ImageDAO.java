@@ -1,6 +1,7 @@
 package com.homestream.HomeStream.dao;
 
 import com.homestream.HomeStream.entity.ImageEntity;
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.ArtistVO;
 
 import java.time.LocalDate;
@@ -26,6 +27,11 @@ public class ImageDAO implements IImageDAO {
     @Override
     public ImageEntity create(ImageEntity Idless) {
         return null;
+    }
+
+    @Override
+    public void update(ImageEntity updated) throws IdNotFoundException {
+
     }
 
     @Override

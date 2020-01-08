@@ -70,6 +70,11 @@ public class MusicDAOStub implements IMusicDAO {
     }
 
     @Override
+    public void update(MusicEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
+    }
+
+    @Override
     public void delete(MusicEntity toBeDeleted) {
         DBStub.musics.remove(toBeDeleted);
     }

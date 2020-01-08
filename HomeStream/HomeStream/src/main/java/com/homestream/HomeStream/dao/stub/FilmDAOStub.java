@@ -69,6 +69,11 @@ public class FilmDAOStub implements IFilmDAO {
     }
 
     @Override
+    public void update(FilmEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
+    }
+
+    @Override
     public void delete(FilmEntity toBeDeleted) {
         DBStub.films.remove(toBeDeleted);
     }

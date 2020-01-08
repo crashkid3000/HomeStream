@@ -1,6 +1,7 @@
 package com.homestream.HomeStream.dao;
 
 import com.homestream.HomeStream.entity.MusicEntity;
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.ArtistVO;
 
 import java.time.LocalDate;
@@ -26,6 +27,11 @@ public class MusicDAO implements IMusicDAO {
     @Override
     public MusicEntity create(MusicEntity Idless) {
         return null;
+    }
+
+    @Override
+    public void update(MusicEntity updated) throws IdNotFoundException {
+
     }
 
     @Override

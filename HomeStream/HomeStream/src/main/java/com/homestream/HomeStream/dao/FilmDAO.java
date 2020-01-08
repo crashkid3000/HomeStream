@@ -1,6 +1,7 @@
 package com.homestream.HomeStream.dao;
 
 import com.homestream.HomeStream.entity.FilmEntity;
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.ArtistVO;
 
 import java.time.LocalDate;
@@ -26,6 +27,11 @@ public class FilmDAO implements IFilmDAO {
     @Override
     public FilmEntity create(FilmEntity Idless) {
         return null;
+    }
+
+    @Override
+    public void update(FilmEntity updated) throws IdNotFoundException {
+
     }
 
     @Override
