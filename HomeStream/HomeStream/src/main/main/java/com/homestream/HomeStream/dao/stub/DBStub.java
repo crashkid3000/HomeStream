@@ -67,8 +67,8 @@ public class DBStub {
             LinkedList<RoleEntity> __roleCars = new LinkedList<>();
             __roleCars.add(roles.get(0));
 
-            films.add(new FilmEntity(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), dataDir.toString() + "\\Csgo Atomflicc-1.m4v", 19281365, users.get(3), __roleAtomflick, null, new LinkedList<String>(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
-            films.add(new FilmEntity(1, "Cars (Music Video)", LocalDate.of(1999, 8, 28), LocalDateTime.now(), dataDir.toString() + "\\Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), __roleCars, null, new LinkedList<String>(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
+            films.add(new FilmEntity(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), "Csgo Atomflicc-1.m4v", 19281365, users.get(3), __roleAtomflick, null, new LinkedList<String>(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
+            films.add(new FilmEntity(1, "csgo", LocalDate.of(1999, 8, 28), LocalDateTime.now(), "Bumm-1.mp4", 15872449, users.get(3), __roleCars, null, new LinkedList<String>(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
         }
 
         if(null == musics){
@@ -77,17 +77,21 @@ public class DBStub {
             LinkedList<ArtistVO> __artistGamma = new LinkedList<>();
             LinkedList<RoleEntity> __roleMonody = new LinkedList<>();
             LinkedList<RoleEntity> __roleGamma = new LinkedList<>();
+            List<String> __tagsRammstein = new LinkedList();
+            List<String> __tagsRammstein2 = new LinkedList();
             __artistMonody.add(artists.get(1));
             __artistMonody.add(artists.get(3));
             __artistGamma.add(artists.get(0));
             __roleMonody.add(roles.get(1));
             __roleGamma.add(roles.get(0));
+            __tagsRammstein.add("rammstein");
+            __tagsRammstein2.add("rock");
 
             musics.add(new MusicEntity(0, "Monody", LocalDate.of(2015, 11, 7), LocalDateTime.now(), "TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), __roleMonody, "defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, LocalTime.of(0, 4, 51)));
             musics.add(new MusicEntity(1, "Gamma", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "Demolition Racer.m4a", 4395643, users.get(1), __roleGamma, "demolition_racer.png", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
 
-            musics.add(new MusicEntity(2, "Deutschland", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "01 Deutschland.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
-            musics.add(new MusicEntity(3, "Radio", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "02 Radio.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
+            musics.add(new MusicEntity(2, "Deutschland", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "01 Deutschland.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", __tagsRammstein, __artistGamma, LocalTime.of(0, 4, 29)));
+            musics.add(new MusicEntity(3, "Radio", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "02 Radio.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", __tagsRammstein2, __artistGamma, LocalTime.of(0, 4, 29)));
             musics.add(new MusicEntity(4, "Zeig Dich", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "03 Zeig Dich.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
             musics.add(new MusicEntity(5, "Ausländer", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "04 Ausländer.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
             musics.add(new MusicEntity(6, "Sex", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "05 Sex.mp3", 4395643, users.get(1), __roleGamma, "rammstein-artwork.jfif", new LinkedList<String>(), __artistGamma, LocalTime.of(0, 4, 29)));
@@ -115,8 +119,8 @@ public class DBStub {
             __roleGRE.add(roles.get(0));
             __rolerPlace.add(roles.get(1));
 
-            images.add(new ImageEntity(0, "Global Retrowave Elite", LocalDate.of(2019, 9, 15), LocalDateTime.now(), dataDir.toString() + "\\gre_with_chrome_bl.png", 410376, users.get(3), __roleGRE, null, new LinkedList<String>(), __artistCk3k, new int[]{1000, 400}));
-            images.add(new ImageEntity(1, "rPlace", LocalDate.of(2017, 4, 3), LocalDateTime.now(), dataDir.toString() + "\\rPlace.png", 842435, users.get(2), __rolerPlace, null, new LinkedList<String>(), __artistReddit, new int[]{4000, 4000}));
+            images.add(new ImageEntity(0, "Global Retrowave Elite", LocalDate.of(2019, 9, 15), LocalDateTime.now(), "gre_with_chrome_bl.png", 410376, users.get(3), __roleGRE, null, new LinkedList<String>(), __artistCk3k, new int[]{1000, 400}));
+            images.add(new ImageEntity(1, "rPlace", LocalDate.of(2017, 4, 3), LocalDateTime.now(), "rPlace.png", 842435, users.get(2), __rolerPlace, null, new LinkedList<String>(), __artistReddit, new int[]{4000, 4000}));
         }
 
 
