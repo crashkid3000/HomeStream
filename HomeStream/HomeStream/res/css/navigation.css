@@ -97,3 +97,36 @@
 {
   width: 6em;
 }
+
+.nav_search
+{
+    margin-top: -6em;
+}
+
+input[type=text], input[type=password]
+{
+    text-align: center;
+    width: 25em;
+    margin: 0 0.5em;
+    margin-top: 1.75em;
+    border: none;
+    border-bottom: solid;
+    border-color: gray;
+    border-width: 0.25em;
+    color: gray;
+    height: 2.5em;
+}
+
+.fix
+{
+    position: fixed;
+
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+
+    background-color: white;
+
+    margin: 0;
+    margin-bottom: -5em;
+}

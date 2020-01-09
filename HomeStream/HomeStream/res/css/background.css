@@ -1,23 +1,27 @@
-.parallax {
-  /* The image used */
-  background-image: url("img_parallax.jpg");
-  background-color: #999;
-
-  /* Set a specific height */
-  min-height: 100%;
-
-  /* Create the parallax scrolling effect */
+html
+{
+background-image: url("/data/cover_0.jpg");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.parallax {
+  /* The image used */
+
+
+  /* Set a specific height */
+  height: 70%;
+
+  /* Create the parallax scrolling effect */
 
   position: relative;
 
   z-index: -1;
 }
 .parallaxPlayer {
-  /* The image used */
+  background-color: #333;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
