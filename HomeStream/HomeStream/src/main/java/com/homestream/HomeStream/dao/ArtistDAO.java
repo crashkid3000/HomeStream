@@ -121,6 +121,7 @@ public class ArtistDAO implements IDAO<ArtistVO> {
         ArtistVO a;
         openCurrentSession();
         a = currentSession.get(ArtistVO.class, id);
+        closeCurrentSession();
         if(a != null){
             retVal = Optional.of(a);
         }
@@ -134,8 +135,10 @@ public class ArtistDAO implements IDAO<ArtistVO> {
     @Override
     public List<ArtistVO> getByName(String name) {
         List<ArtistVO> retVal;
+        openCurrentSession();
         Criteria criteria = currentSession.createCriteria(ArtistVO.class);
         retVal = (List<ArtistVO>) criteria.add(Restrictions.eq("name", name)).list();
+        closeCurrentSession();
         if(retVal == null){
             System.out.println("ArtistDAO.getByName(): retVal is null! Returning a new LinkedList<>() instead...");
             retVal = new LinkedList<>();
