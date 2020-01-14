@@ -10,8 +10,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.LinkedList;
 import java.util.List;
@@ -136,13 +138,26 @@ public class ArtistDAO implements IDAO<ArtistVO> {
     public List<ArtistVO> getByName(String name) {
         List<ArtistVO> retVal;
         openCurrentSession();
-        Criteria criteria = currentSession.createCriteria(ArtistVO.class);
-        retVal = (List<ArtistVO>) criteria.add(Restrictions.eq("name", name)).list();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<ArtistVO> criteria = builder.createQuery(ArtistVO.class);
+        Root<ArtistVO> artistVORoot = criteria.from(ArtistVO.class);
+        Predicate pred = builder.like(artistVORoot.get("name"), name + "*"); //if the artists name starts with the given name
+        criteria.select(artistVORoot).where(pred);
+        TypedQuery<ArtistVO> query = currentSession.createQuery(criteria);
+        retVal = query.getResultList();
         closeCurrentSession();
-        if(retVal == null){
-            System.out.println("ArtistDAO.getByName(): retVal is null! Returning a new LinkedList<>() instead...");
-            retVal = new LinkedList<>();
-        }
         return retVal;
+
+            //Old code w/ deprecated method call:
+//        List<ArtistVO> retVal;
+//        openCurrentSession();
+//        //Criteria criteria = currentSession.createCriteria(ArtistVO.class);
+//        retVal = (List<ArtistVO>) criteria.add(Restrictions.eq("name", name)).list();
+//        closeCurrentSession();
+//        if(retVal == null){
+//            System.out.println("ArtistDAO.getByName(): retVal is null! Returning a new LinkedList<>() instead...");
+//            retVal = new LinkedList<>();
+//        }
+//        return retVal;
     }
 }

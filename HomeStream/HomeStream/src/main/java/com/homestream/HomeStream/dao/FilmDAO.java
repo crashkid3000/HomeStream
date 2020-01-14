@@ -11,6 +11,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -144,9 +149,22 @@ public class FilmDAO implements IFilmDAO {
     public List<FilmEntity> getByName(String name) {
         List<FilmEntity> retVal;
         openCurrentSession();
-        Criteria criteria = currentSession.createCriteria(FilmEntity.class);
-        retVal = (List<FilmEntity>) criteria.add(Restrictions.eq("name", name)).list();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<FilmEntity> criteria = builder.createQuery(FilmEntity.class);
+        Root<FilmEntity> filmEntityRoot = criteria.from(FilmEntity.class);
+        Predicate pred = builder.like(filmEntityRoot.get("name"), name + "*"); //if the artists name starts with the given name
+        criteria.select(filmEntityRoot).where(pred);
+        TypedQuery<FilmEntity> query = currentSession.createQuery(criteria);
+        retVal = query.getResultList();
         closeCurrentSession();
         return retVal;
+
+        //Old code with deprecated method calls:
+//        List<FilmEntity> retVal;
+//        openCurrentSession();
+//        Criteria criteria = currentSession.createCriteria(FilmEntity.class);
+//        retVal = (List<FilmEntity>) criteria.add(Restrictions.eq("name", name)).list();
+//        closeCurrentSession();
+//        return retVal;
     }
 }

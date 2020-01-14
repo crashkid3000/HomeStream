@@ -5,8 +5,7 @@ import com.homestream.HomeStream.vo.UserVO;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A template class that groups common properties for a media resource together
@@ -38,7 +37,7 @@ public abstract class MediaEntity implements IEntity {
     @JoinColumn(name="ID")
     private List<RoleEntity> accessibleBy;
     private String thumbnailName;
-    private List<String> tags;
+    private String tags; //Decided to switch from List<String> to just String to make ORM easier
     @Temporal(TemporalType.DATE)
     private LocalDate uploadedOn;
     @Temporal(TemporalType.DATE)
@@ -69,7 +68,7 @@ public abstract class MediaEntity implements IEntity {
         this.ownedBy = ownedBy;
         this.accessibleBy = accessibleBy;
         this.thumbnailName = thumbnailName;
-        this.tags = tags;
+        this.setTagsUpdatingLastUpdated(tags, false); //Don't set lastUpdated already by setting the tags in the CTOR
         this.uploadedOn = uploadedOn;
         this.lastStreamed = lastStreamed;
     }
@@ -97,7 +96,7 @@ public abstract class MediaEntity implements IEntity {
         this.ownedBy = ownedBy;
         this.accessibleBy = accessibleBy;
         this.thumbnailName = thumbnailName;
-        this.tags = tags;
+        this.setTagsUpdatingLastUpdated(tags, false); //Don't set lastUpdated already by setting the tags in the CTOR
         this.uploadedOn = uploadedOn;
         this.lastStreamed = lastStreamed;
     }
@@ -245,7 +244,7 @@ public abstract class MediaEntity implements IEntity {
      * @return The list of tags associated with this media piece
      */
     public List<String> getTags() {
-        return tags;
+        return new LinkedList<>(Arrays.asList(tags.split(",")));
     }
 
     /**
@@ -282,8 +281,23 @@ public abstract class MediaEntity implements IEntity {
      * @param tags The updated list of tags
      */
     public void setTags(List<String> tags) {
-        this.tags = tags;
-        this.setLastUpdated();
+        setTagsUpdatingLastUpdated(tags, true);
+    }
+
+    protected void setTagsUpdatingLastUpdated(List<String> tags, boolean updateLastUpdatedAsWell){
+        StringBuilder temp = new StringBuilder();
+
+        //Sort strings in alphabetical order
+        Collections.sort(tags, String.CASE_INSENSITIVE_ORDER);
+        //Iterate through all tags and append them to a comma-seperated string
+        for(String s: tags){
+            temp.append(s + ",");
+        }
+        temp.deleteCharAt(temp.length() - 1); //Remove last superfluous comma
+        this.tags = temp.toString();
+        if(updateLastUpdatedAsWell){ //if we want to update the lastUpdated as well (don't want to do this in the CTOR, but anywhere ele, we do)
+            this.setLastUpdated();
+        }
     }
 
     @Override
