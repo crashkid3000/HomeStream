@@ -12,10 +12,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.EntityType;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,17 +75,65 @@ public class FilmDAO implements IFilmDAO {
 
     @Override
     public List<FilmEntity> getByActor(ArtistVO actor) {
-        return null;
+        List<FilmEntity> retVal;
+        openCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<FilmEntity> criteria = builder.createQuery(FilmEntity.class);
+        Root<FilmEntity> filmEntityRoot = criteria.from(FilmEntity.class);
+        Root<ArtistVO> artistVoRoot
+        EntityType<FilmEntity> FilmEntity_ = filmEntityRoot.getModel();
+        EntityType<ArtistVO> ArtistVO_ =
+        Join<FilmEntity, ArtistVO> filmArtistJoin = filmEntityRoot.join("ArtistVO");
+        Predicate pred = builder.equal(filmEntityRoot.get("mainActors"), release); //if the artists name starts with the given name
+        criteria.select(filmEntityRoot).where(pred);
+        TypedQuery<FilmEntity> query = currentSession.createQuery(criteria);
+        retVal = query.getResultList();
+        closeCurrentSession();
+        return retVal
     }
 
     @Override
     public List<FilmEntity> getByReleaseDate(LocalDate release) {
-        return null;
+        List<FilmEntity> retVal;
+        openCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<FilmEntity> criteria = builder.createQuery(FilmEntity.class);
+        Root<FilmEntity> filmEntityRoot = criteria.from(FilmEntity.class);
+        Predicate pred = builder.equal(filmEntityRoot.get("releaseDate"), release); //if the artists name starts with the given name
+        criteria.select(filmEntityRoot).where(pred);
+        TypedQuery<FilmEntity> query = currentSession.createQuery(criteria);
+        retVal = query.getResultList();
+        closeCurrentSession();
+        return retVal;
     }
 
     @Override
     public List<FilmEntity> getByTags(List<String> tags) {
-        return null;
+        /* Instead of creating criteria, predicates etc and then conducting a search query, we're doing things differently here:
+         *   - get all apt Entitys from the DB (yes, I know it is memory-heavy. However, it is by far the easier solution
+         *       due to the way tags are saved in the DB, in entities and how we deal with them in the rest of the application)
+         *   - go through each given tag
+         *     - look if each film has said tag
+         *     - if so, it stays in the list
+         *     - if not, it is thrown out
+         *
+         *  This approach means that if there are a lot of entries in the DB that also contain a lot of tags, this search will be
+         * quite slow at the beginning. However, it at least speeds up with every next given tag... :s
+         */
+        List<FilmEntity> retVal = this.getAll();
+        List<FilmEntity> tempList = new LinkedList<>();
+        for(String tag: tags){
+            for(FilmEntity f: retVal){
+                if(f.getTags().contains(tag)){
+                    tempList.add(f);
+                }
+            }
+            retVal = new LinkedList<>(tempList);
+            tempList = new LinkedList();
+        }
+
+        return retVal;
+
     }
 
     @Override
