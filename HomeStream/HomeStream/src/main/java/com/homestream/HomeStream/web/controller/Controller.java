@@ -24,10 +24,10 @@ public class Controller
         try {
 
             html = new HTML[] {
-                    new HTML(".\\res\\scripts\\defaultStart.script", true),
-                    new HTML(".\\res\\scripts\\defaultGallery.script", true),
-                    new HTML(".\\res\\scripts\\defaultMusic.script", false),
-                    new HTML(".\\res\\scripts\\defaultPlayer.script", false)};
+                    new HTML(".\\res\\scripts\\defaultStart.script"),
+                    new HTML(".\\res\\scripts\\defaultGallery.script"),
+                    new HTML(".\\res\\scripts\\defaultMusic.script"),
+                    new HTML(".\\res\\scripts\\defaultPlayer.script")};
 
         } catch (IOException e)
         {
