@@ -17,6 +17,10 @@ public class TEMP
     String data;
     Loader loader = new Loader();
 
+    /**
+     * Load Temp-File
+     * @param file
+     */
     public TEMP(String file)
     {
         try {
@@ -27,5 +31,9 @@ public class TEMP
         }
     }
 
+    /**
+     * Return Data
+     * @return
+     */
     public String get() { return data; }
 }

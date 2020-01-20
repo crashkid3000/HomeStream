@@ -10,20 +10,14 @@ import java.util.ArrayList;
 
 public class WebGenerator
 {
-    /**
-     * Class to generate an dynamic site by '.script' File
-     *
-     * @author S. Schulze
-     * @last_update 6.11.19
-     */
-
-    boolean firstElement = true;
-
-    ArrayList<String> tags = new ArrayList<>();
     ScriptEngine script = new ScriptEngine();
 
-
-    public String generate(String scriptFile, boolean statics)
+    /**
+     * Main Function to generate
+     * @param scriptFile
+     * @return
+     */
+    public String generate(String scriptFile)
     {
         File file = new File(scriptFile);
         try {
@@ -36,14 +30,19 @@ public class WebGenerator
 
         String out = null;
         try {
-            out = write(statics);
+            out = write();
         } catch (ScriptFormatException e) {
             e.printStackTrace();
         }
         return out;
     }
 
-    private String write(boolean statics) throws ScriptFormatException {
+    /**
+     * Function to 'write' Website
+     * @return
+     * @throws ScriptFormatException
+     */
+    private String write() throws ScriptFormatException {
         String out = "";
 
         out += "<!DOCTYPE html>\n";
@@ -55,21 +54,35 @@ public class WebGenerator
         out += "</head>\n";
         out += "<body>\n";
 
-        if (statics) out += getContent("#HEAD");
-        if (!statics) out += getContent("#AUDIOHEAD");
-        if (statics) out += "<div class=\"boxFirst\">";
-        if (statics) out += getContent("#NAVIGATION");
-        if (statics) out += decrypt("content:");
-        if (statics) out += "</div>";
+        out += getContent("#HEAD");
+
+        out += getContent("#AUDIOHEAD");
+        out += getContent("#VIDEOHEAD");
+        out += getContent("#IMGHEAD");
+        out += getContent("#LOGIN");
+        out += getContent("#SEARCH");
+        out += getContent("#UPLOAD");
+
+        out += "<div class=\"box\">";
+        out += getContent("#NAVIGATION");
+        out += decrypt("content:");
+        out += "</div>";
 
         out += getJS("#MAIN_JS");
         out += getJS("#CONTENT_JS");
+
         out += "</body>\n";
         out += "</html>\n";
 
         return out;
     }
 
+    /**
+     * Function to pre Build static content
+     * @param key
+     * @param keys
+     * @return
+     */
     private String decrypt(String key, String... keys) {
         String[] keyList = new String[keys.length + 1];
         String[] lines;
@@ -92,8 +105,6 @@ public class WebGenerator
                     }
                     else if(item.equals("content:")) if(i.startsWith("#"))
                         {
-                            tags.add(i);
-
                             out += getContent(i);
                         }
                 }
@@ -106,20 +117,14 @@ public class WebGenerator
         return out;
     }
 
-    public String[] getTags()
-    {
-        String[] out = new String[tags.size()];
-
-        for(int i = 0; i < out.length; i++) out[i] = tags.get(i);
-
-        return out;
-    }
-
+    /**
+     * Set CSS links
+     * @param item
+     * @return
+     */
     private String getCSS(String item)
     {
-        byte index;
-        if(item.startsWith("#DARK")) index = Properties.DARK;
-        else index = Properties.LIGHT;
+        byte index = Properties.THEME;
 
         if(item.endsWith("ICON_CSS")) return Properties.ICONS_CSS[index];
         else if(item.endsWith("MAIN_CSS")) return Properties.MAIN_CSS[index];
@@ -130,13 +135,26 @@ public class WebGenerator
         else return null;
     }
 
+    /**
+     * Set JS links
+     * @param item
+     * @return
+     */
     private String getJS(String item)
-{
-    if(item.endsWith("MAIN_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.MAIN_JS + "\">\n</script>";
-    if(item.endsWith("CONTENT_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.CONTENT_JS + "\">\n</script>";
-    else return null;
-}
+    {
+        if(item.endsWith("MAIN_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.MAIN_JS + "\">\n</script>";
+        if(item.endsWith("CONTENT_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.CONTENT_JS + "\">\n</script>";
+        if(item.endsWith("AUDIO_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.AUDIO_JS + "\">\n</script>";
+        if(item.endsWith("VIDEO_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.VIDEO_JS + "\">\n</script>";
+        else return null;
+    }
 
+    /**
+     * Set Content
+     * @param item
+     * @return
+     * @throws ScriptFormatException
+     */
     private String getContent(String item) throws ScriptFormatException {
         switch (item)
         {
@@ -144,6 +162,14 @@ public class WebGenerator
                 return Properties.CONTENT_TITLE[0].get();
             case "#AUDIOHEAD":
                 return Properties.AUDIO_TITLE[0].get();
+            case "#VIDEOHEAD":
+                return Properties.VIDEO_TITLE[0].get();
+            case "#IMGHEAD":
+                return Properties.IMG_TITLE[0].get();
+            case "#LOGIN":
+                return Properties.LOGIN[0].get();
+            case "#SEARCH":
+                return Properties.SEARCH[0].get();
             case "#NAVIGATION":
                 return Properties.CONTENT_NAVIGATION[0].get();
             case "#LATEST_UPLOADS":
@@ -151,6 +177,8 @@ public class WebGenerator
             case "#FAVORITES":
             case "#SEARCH_RESULT":
                 return Properties.CONTENT_ELEMENT[0].get();
+            case "#UPLOAD":
+                return Properties.UPLOAD[0].get();
             case "#FOOT":
                 return Properties.FOOT.get();
             default:

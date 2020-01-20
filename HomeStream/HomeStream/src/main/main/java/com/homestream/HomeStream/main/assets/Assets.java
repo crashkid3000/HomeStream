@@ -2,9 +2,10 @@ package com.homestream.HomeStream.main.assets;
 
 public class Assets
 {
-    public boolean arrayContainsValue(Object[] array, Object value)
+    public static boolean checkFileType(String fileName, String type, String... types)
     {
-        for(Object item : array) if(item.equals(value)) return true;
+        if(fileName.endsWith(type.replaceFirst(".",""))) return true;
+        for (String s : types) if(fileName.endsWith(s.replaceFirst(".",""))) return true;
         return false;
     }
 }

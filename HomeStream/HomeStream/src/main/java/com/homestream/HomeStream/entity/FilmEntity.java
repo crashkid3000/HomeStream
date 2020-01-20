@@ -2,7 +2,6 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
-import jdk.vm.ci.meta.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
