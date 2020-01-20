@@ -75,21 +75,22 @@ public class FilmDAO implements IFilmDAO {
 
     @Override
     public List<FilmEntity> getByActor(ArtistVO actor) {
+        //TODO ka ob das hier funktionoiert
         List<FilmEntity> retVal;
         openCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<FilmEntity> criteria = builder.createQuery(FilmEntity.class);
         Root<FilmEntity> filmEntityRoot = criteria.from(FilmEntity.class);
-        Root<ArtistVO> artistVoRoot
+        //Root<ArtistVO> artistVoRoot
         EntityType<FilmEntity> FilmEntity_ = filmEntityRoot.getModel();
-        EntityType<ArtistVO> ArtistVO_ =
+        //EntityType<ArtistVO> ArtistVO_ =
         Join<FilmEntity, ArtistVO> filmArtistJoin = filmEntityRoot.join("ArtistVO");
-        Predicate pred = builder.equal(filmEntityRoot.get("mainActors"), release); //if the artists name starts with the given name
+        Predicate pred = builder.equal(filmEntityRoot.get("mainActors"), actor);
         criteria.select(filmEntityRoot).where(pred);
         TypedQuery<FilmEntity> query = currentSession.createQuery(criteria);
         retVal = query.getResultList();
         closeCurrentSession();
-        return retVal
+        return retVal;
     }
 
     @Override
@@ -99,7 +100,7 @@ public class FilmDAO implements IFilmDAO {
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<FilmEntity> criteria = builder.createQuery(FilmEntity.class);
         Root<FilmEntity> filmEntityRoot = criteria.from(FilmEntity.class);
-        Predicate pred = builder.equal(filmEntityRoot.get("releaseDate"), release); //if the artists name starts with the given name
+        Predicate pred = builder.equal(filmEntityRoot.get("releaseDate"), release);
         criteria.select(filmEntityRoot).where(pred);
         TypedQuery<FilmEntity> query = currentSession.createQuery(criteria);
         retVal = query.getResultList();
