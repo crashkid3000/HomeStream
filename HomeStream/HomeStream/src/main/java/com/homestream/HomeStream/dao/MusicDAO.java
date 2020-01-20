@@ -131,7 +131,7 @@ public class MusicDAO implements IMusicDAO {
                 }
             }
             retVal = new LinkedList<>(tempList);
-            tempList = new LinkedList();
+            tempList = new LinkedList<>();
         }
 
         return retVal;

@@ -130,7 +130,7 @@ public class ImageDAO implements IImageDAO {
                 }
             }
             retVal = new LinkedList<>(tempList);
-            tempList = new LinkedList();
+            tempList = new LinkedList<>();
         }
 
         return retVal;

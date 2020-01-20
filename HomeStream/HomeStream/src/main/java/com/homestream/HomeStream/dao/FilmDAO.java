@@ -130,7 +130,7 @@ public class FilmDAO implements IFilmDAO {
                 }
             }
             retVal = new LinkedList<>(tempList);
-            tempList = new LinkedList();
+            tempList = new LinkedList<>();
         }
 
         return retVal;
