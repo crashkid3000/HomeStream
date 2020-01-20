@@ -13,32 +13,29 @@ public class Properties
      */
 
     private static Loader loader = new Loader();
+    private static PropertiesLoader propertiesLoader = new PropertiesLoader();
 
-    //MAIN
+    /**
+     * Main Properties
+     */
     public static final String TITLE = "HomeStream";
-    public static final String[] MOTTO = new String[] {
-            "Stream your Sofa", "I have a Stream",
-            "Stream your Fantasy", "Stream your Holidays",
-            "Stream your Family"};
+    public static final String[] MOTTO = propertiesLoader.getAsArray("general.motto");
 
-    public static final String DOMAIN = "homestream.com";
-    public static String[] LANGUAGES = loader.readDirectory("./res/lang/");
-    public static String LANG = "de_DE";
+    public static final String DOMAIN = propertiesLoader.getAsString("general.domain");
+    public static String[] LANGUAGES = propertiesLoader.getAsArray("general.lang.names");
+    public static String[] LANGUAGE_TAGS = propertiesLoader.getAsArray("general.lang.tags");
+    public static String LANG = propertiesLoader.getAsString("general.lang");
 
     private static final byte VERSION_MAJOR = 0;
     private static final byte VERSION_MINOR = 1;
     private static final short VERSION_PATCH = 5;
-    private static final String  VERSION_DATE = "28.11.2019";
+    private static final String  VERSION_DATE = "09.12.2019";
     public static final String VERSION = VERSION_MAJOR + ":" + VERSION_MINOR + ":" + VERSION_PATCH + " - " + VERSION_DATE ;
 
-    //DEFAULTS
-    private static final String SCRIPT_PATH = ".\\res\\scripts\\";
-    public static final String[] SCRIPTS = new String[]{
-                    SCRIPT_PATH + "defaultStart.script",
-                    SCRIPT_PATH + "defaultGallery.script"};
-
-    public static final byte LIGHT = 0;
-    public static final byte DARK = 1;
+    /**
+     * Static Content Properties
+     */
+    public static final byte THEME = propertiesLoader.getAsByte("general.theme");
 
     private static final String CSS_PATH = "css/";
     public static final String[] MAIN_CSS = new String[]
@@ -57,7 +54,12 @@ public class Properties
     private static final String JS_PATH = "js/";
     public static final String MAIN_JS = JS_PATH + "main.js";
     public static final String CONTENT_JS = JS_PATH + "content.js";
+    public static final String AUDIO_JS = JS_PATH + "audio.js";
+    public static final String VIDEO_JS = JS_PATH + "video.js";
 
+    /**
+     * Dynamic Content Properties
+     */
     private static final String TEMP_PATH = "./res/template/";
     public static final TEMP[] CONTENT_NAVIGATION = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultNav")};
@@ -65,10 +67,20 @@ public class Properties
             {new TEMP(TEMP_PATH + "defaultTitle")};
     public static final TEMP[] AUDIO_TITLE = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultAudioTitle")};
+    public static final TEMP[] VIDEO_TITLE = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultVideoTitle")};
+    public static final TEMP[] LOGIN = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultUser")};
+    public static final TEMP[] SEARCH = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultSearch")};
+    public static final TEMP[] IMG_TITLE = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultImageTitle")};
     public static final TEMP[] CONTENT_ELEMENT = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultContentElement")};
     public static final TEMP[] CONTENT_ALL = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultContentAll")};
+    public static final TEMP[] UPLOAD = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultUpload")};
 
     public static final TEMP FOOT = new TEMP(TEMP_PATH + "foot");
 

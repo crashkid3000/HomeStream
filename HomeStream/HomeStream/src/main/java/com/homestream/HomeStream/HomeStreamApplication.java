@@ -1,5 +1,6 @@
 package com.homestream.HomeStream;
 
+import com.homestream.HomeStream.main.console.ConsoleHandler;
 import com.homestream.HomeStream.main.assets.property.Properties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,10 @@ public class HomeStreamApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args)
 	{
+		ConsoleHandler consoleHandler = new ConsoleHandler();
+		for(String s : Properties.LANGUAGES) System.out.println(s);
+		for(String s : Properties.LANGUAGE_TAGS) System.out.println(s);
+
 		System.out.println(Properties.VERSION);
 		SpringApplication homeStream = new SpringApplication();
 
@@ -21,5 +26,8 @@ public class HomeStreamApplication extends WebMvcConfigurerAdapter {
 
 		homeStream.setDefaultProperties(properties);
 		homeStream.run(HomeStreamApplication.class, args);
+
+		consoleHandler.run();
+		
 	}
 }
