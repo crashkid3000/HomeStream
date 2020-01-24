@@ -3,8 +3,6 @@ var sw = window.screen.width;
 var sh = window.screen.height;
 var sr;
 
-var main = document.getElementById("user");
-
 function ggt(a,b)
   {
    var r;
@@ -17,7 +15,6 @@ function ggt(a,b)
    while (r>0);
      sr = (sw / a) + ":" + (sh / a);
         var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        main.innerHTML = parseInt((w / sw) * 10);
 }
 
 
@@ -31,5 +28,4 @@ window.onload = ggt(sw,sh);
 window.onresize = function()
 {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    main.textContent = parseInt((w / sw) * 10);
 };
