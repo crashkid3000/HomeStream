@@ -2,7 +2,6 @@ package com.homestream.HomeStream.dao.stub;
 
 import com.homestream.HomeStream.dao.IDAO;
 import com.homestream.HomeStream.vo.ArtistVO;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 
 import java.util.LinkedList;
 import java.util.List;
