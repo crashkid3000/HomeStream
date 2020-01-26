@@ -1,8 +1,9 @@
 package com.homestream.HomeStream.hibernate.sqlite;
 
 import org.hibernate.dialect.Dialect;
-import java.sql.Types;
 import org.hibernate.dialect.identity.IdentityColumnSupport;
+
+import java.sql.Types;
 
 /**
  * Represents the SQLite dialect and makes it available for Hibernate

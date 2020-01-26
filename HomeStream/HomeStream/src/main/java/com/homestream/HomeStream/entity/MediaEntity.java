@@ -41,7 +41,7 @@ public abstract class MediaEntity implements IEntity {
     @Temporal(TemporalType.DATE)
     private LocalDate uploadedOn;
     @Temporal(TemporalType.DATE)
-    private LocalDate lastStreamed;
+    private java.util.Date lastStreamed;
 
     /**
      * Creates a new MediaEntity template
@@ -58,7 +58,7 @@ public abstract class MediaEntity implements IEntity {
      * @param uploadedOn When this file was uploaded to the server
      * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed) {
+    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, java.util.Date lastStreamed) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -86,7 +86,7 @@ public abstract class MediaEntity implements IEntity {
      * @param uploadedOn When this file was uploaded to the server
      * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed) {
+    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, java.util.Date lastStreamed) {
         this.id = -1;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -266,13 +266,13 @@ public abstract class MediaEntity implements IEntity {
      * Returns when this media was last streamed
      * @return When this media was last streamed
      */
-    public LocalDate getLastStreamed() { return lastStreamed; }
+    public java.util.Date getLastStreamed() { return lastStreamed; }
 
     /**
      * Updates when this media was last streamed. <i>Does not refresh the <code>lastChanged</code> property</i>
      * @param lastStreamed when this media was last streamed
      */
-    public void setLastStreamed(LocalDate lastStreamed) {
+    public void setLastStreamed(java.util.Date lastStreamed) {
         this.lastStreamed = lastStreamed;
     }
 
@@ -290,10 +290,17 @@ public abstract class MediaEntity implements IEntity {
         //Sort strings in alphabetical order
         Collections.sort(tags, String.CASE_INSENSITIVE_ORDER);
         //Iterate through all tags and append them to a comma-seperated string
-        for(String s: tags){
-            temp.append(s + ",");
+        if(tags.size() > 0)
+        {
+            for(String s: tags){
+                temp.append(s + ",");
+            }
+            temp.deleteCharAt(temp.length()); //Remove last superfluous comma
         }
-        temp.deleteCharAt(temp.length() - 1); //Remove last superfluous comma
+        else
+            {
+                temp.append("null");
+            }
         this.tags = temp.toString();
         if(updateLastUpdatedAsWell){ //if we want to update the lastUpdated as well (don't want to do this in the CTOR, but anywhere ele, we do)
             this.setLastUpdated();

@@ -1,5 +1,2 @@
 var audio = document.getElementById("audio");
-audio.onended = function()
-{
-    alert("penis");
-}
+audio.volume = 0.2;

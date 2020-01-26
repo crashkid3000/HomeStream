@@ -21,12 +21,12 @@ public class ConsoleHandler
 
     public void run()
     {
+        ConsoleDecrypts consoleDecrypts = new ConsoleDecrypts();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while(true)
         {
             try {
-                if(reader.readLine().equals("exit")) break;
-                System.out.println(readCommand(reader.readLine()));
+                consoleDecrypts.decrypt(reader.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
             }

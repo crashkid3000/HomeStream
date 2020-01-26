@@ -57,6 +57,23 @@ public class Assets
     }
 
     /**
+     * Test if Source found in target Array
+     * @param source
+     * @param target
+     * @return
+     */
+    public static boolean compareWithArray(String source, String[] target)
+    {
+        for (String s : target) if(s.equals(source)) return true;
+        return false;
+    }
+    public static boolean compareWithArrayIgnoreCase(String source, String[] target)
+    {
+        for (String s : target) if(s.equalsIgnoreCase(source)) return true;
+        return false;
+    }
+
+    /**
      * Function to Decrypt Search Query from extended Search
      * @param query
      * @return
@@ -84,5 +101,45 @@ public class Assets
         out = out.replace("TAGS", Lang.TAGS_SEARCH);
 
         return out;
+    }
+
+    /**
+     * Compares Strings with Source String. Return True if one True
+     * @param source
+     * @param target
+     * @param targets
+     * @return
+     */
+    public static boolean compareByString_OR(String source, String target, String... targets)
+    {
+        if(source.equals(target)) return true;
+        for(String s : targets) if(source.equals(s)) return true;
+        return false;
+    }
+    public static boolean compareByStringIgnoreCase_OR(String source, String target, String... targets)
+    {
+        if(source.equalsIgnoreCase(target)) return true;
+        for(String s : targets) if(source.equalsIgnoreCase(s)) return true;
+        return false;
+    }
+
+    /**
+     * Compares Strings with Source String. Return True if all True
+     * @param source
+     * @param target
+     * @param targets
+     * @return
+     */
+    public static boolean compareByString_AND(String source, String target, String... targets)
+    {
+        if(source.equals(target)) return true;
+        for(String s : targets) if(source.equals(s)) return true;
+        return false;
+    }
+    public static boolean compareByStringIgnoreCase_AND(String source, String target, String... targets)
+    {
+        if(!source.equalsIgnoreCase(target)) return false;
+        for(String s : targets) if(!source.equalsIgnoreCase(s)) return false;
+        return true;
     }
 }

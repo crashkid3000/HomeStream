@@ -68,8 +68,6 @@ public class DbConfig {
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty(
-                "hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2dll.auto"));
-        hibernateProperties.setProperty(
                 "hibernate.dialect", env.getProperty("hibernate.dialect"));
 
         return hibernateProperties;
