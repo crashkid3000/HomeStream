@@ -23,7 +23,6 @@ public class MusicEntity extends MediaEntity{
         inverseJoinColumns = @JoinColumn(name="Music_ID"))
     @JoinColumn(name="ID")
     private List<ArtistVO> artists;
-    @Temporal(TemporalType.TIME)
     private LocalTime length;
 
     /**
