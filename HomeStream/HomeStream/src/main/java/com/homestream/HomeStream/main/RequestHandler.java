@@ -1,5 +1,6 @@
 package com.homestream.HomeStream.main;
 
+import com.homestream.HomeStream.dao.MusicDAO;
 import com.homestream.HomeStream.dao.stub.FilmDAOStub;
 import com.homestream.HomeStream.dao.stub.ImageDAOStub;
 import com.homestream.HomeStream.dao.stub.MusicDAOStub;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class RequestHandler {
 
-    MusicDAOStub music = new MusicDAOStub();
+    MusicDAO music = new MusicDAO();
     FilmDAOStub video = new FilmDAOStub();
     ImageDAOStub image = new ImageDAOStub();
 

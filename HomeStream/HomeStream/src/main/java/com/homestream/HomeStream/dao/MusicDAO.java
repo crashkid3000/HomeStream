@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 public class MusicDAO implements IMusicDAO {
 
+    @Autowired
+    private SessionFactory sessionFactory;
     private Session currentSession;
     private Transaction currentTransaction;
 
@@ -27,12 +30,13 @@ public class MusicDAO implements IMusicDAO {
      *
      * @return a SessionFactory
      */
+    /*
     private static SessionFactory getSessionFactory() {
         Configuration cfg = new Configuration().configure();
         StandardServiceRegistryBuilder ssrBuilder = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
         SessionFactory sFactory = cfg.buildSessionFactory(ssrBuilder.build());
         return sFactory;
-    }
+    }*/
 
     /**
      * Opens a new Session
@@ -40,7 +44,7 @@ public class MusicDAO implements IMusicDAO {
      * @return The newly opened Session
      */
     protected Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = sessionFactory.openSession();
         return currentSession;
     }
 
@@ -50,7 +54,7 @@ public class MusicDAO implements IMusicDAO {
      * @return The newly opened Session
      */
     protected Session openCurrentSessionWithTransaction() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = sessionFactory.openSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
