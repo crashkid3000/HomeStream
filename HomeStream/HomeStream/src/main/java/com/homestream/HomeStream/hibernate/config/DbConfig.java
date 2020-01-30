@@ -1,13 +1,16 @@
 package com.homestream.HomeStream.hibernate.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -48,22 +51,31 @@ public class DbConfig {
         return dataSource;
     }
 
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    @Bean(name = { "sessionFactoryGinter" })
+    public LocalSessionFactoryBean sessionFactoryGinter() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(
                 "com.homestream.HomeStream.dao", "com.homestream.HomeStream.entity", "com.homestream.HomeStream.vo");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
+
+
+
         return sessionFactory;
+    }
+
+    @Bean(name = { "sessionFactory" })
+    @Primary
+    public SessionFactory sessionFactory(){
+        return sessionFactoryGinter().getObject();
     }
 
     @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
+        transactionManager.setSessionFactory(sessionFactoryGinter().getObject());
         return transactionManager;
     }
 

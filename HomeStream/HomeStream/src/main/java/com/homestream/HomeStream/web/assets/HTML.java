@@ -164,7 +164,7 @@ public class HTML
         out = Assets.replaceAll(out,"@TITLE", Properties.TITLE);
         out = Assets.replaceAll(out,"@MOTTO", Properties.MOTTO[(int) ((Math.random() * 10) % Properties.MOTTO.length)]);
 
-        out = out.replaceFirst("@CONTENT_TITLE", (search == null ? "" : search));
+        out = out.replaceFirst("@CONTENT_TITLE", search);
 
         return out;
     }
