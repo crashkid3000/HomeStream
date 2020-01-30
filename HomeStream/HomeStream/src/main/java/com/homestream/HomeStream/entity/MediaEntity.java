@@ -20,9 +20,7 @@ public abstract class MediaEntity implements IEntity {
     @Column(name="ID")
     private long id;
     private String name;
-    @Temporal(TemporalType.DATE)
     private LocalDate releaseDate;
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastUpdated;
     private String fileName;
     private long fileSize;
@@ -38,10 +36,8 @@ public abstract class MediaEntity implements IEntity {
     private List<RoleEntity> accessibleBy;
     private String thumbnailName;
     private String tags; //Decided to switch from List<String> to just String to make ORM easier
-    @Temporal(TemporalType.DATE)
     private LocalDate uploadedOn;
-    @Temporal(TemporalType.DATE)
-    private java.util.Date lastStreamed;
+    private LocalDate lastStreamed;
 
     /**
      * Creates a new MediaEntity template
@@ -58,7 +54,7 @@ public abstract class MediaEntity implements IEntity {
      * @param uploadedOn When this file was uploaded to the server
      * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, java.util.Date lastStreamed) {
+    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -86,7 +82,7 @@ public abstract class MediaEntity implements IEntity {
      * @param uploadedOn When this file was uploaded to the server
      * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, java.util.Date lastStreamed) {
+    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed) {
         this.id = -1;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -266,13 +262,13 @@ public abstract class MediaEntity implements IEntity {
      * Returns when this media was last streamed
      * @return When this media was last streamed
      */
-    public java.util.Date getLastStreamed() { return lastStreamed; }
+    public LocalDate getLastStreamed() { return lastStreamed; }
 
     /**
      * Updates when this media was last streamed. <i>Does not refresh the <code>lastChanged</code> property</i>
      * @param lastStreamed when this media was last streamed
      */
-    public void setLastStreamed(java.util.Date lastStreamed) {
+    public void setLastStreamed(LocalDate lastStreamed) {
         this.lastStreamed = lastStreamed;
     }
 

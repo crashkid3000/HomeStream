@@ -29,7 +29,6 @@ public class FilmEntity extends MediaEntity {
         inverseJoinColumns = @JoinColumn(name="Film_ID"))
     @JoinColumn(name="ID")
     private List<ArtistVO> sideActors;
-    @Temporal(TemporalType.TIME)
     private LocalTime length;
 
     /**

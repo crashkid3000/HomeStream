@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 public class ArtistDAO implements IDAO<ArtistVO> {
 
+    @Autowired
     private Session currentSession;
     private Transaction currentTransaction;
 

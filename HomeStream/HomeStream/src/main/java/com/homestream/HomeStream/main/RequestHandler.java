@@ -1,8 +1,8 @@
 package com.homestream.HomeStream.main;
 
-import com.homestream.HomeStream.dao.stub.FilmDAOStub;
-import com.homestream.HomeStream.dao.stub.ImageDAOStub;
-import com.homestream.HomeStream.dao.stub.MusicDAOStub;
+import com.homestream.HomeStream.dao.FilmDAO;
+import com.homestream.HomeStream.dao.ImageDAO;
+import com.homestream.HomeStream.dao.MusicDAO;
 import com.homestream.HomeStream.entity.IEntity;
 import com.homestream.HomeStream.entity.MediaEntity;
 import com.homestream.HomeStream.main.assets.Assets;
@@ -17,9 +17,9 @@ import java.util.List;
 
 public class RequestHandler {
 
-    MusicDAOStub music = new MusicDAOStub();
-    FilmDAOStub video = new FilmDAOStub();
-    ImageDAOStub image = new ImageDAOStub();
+    MusicDAO music = new MusicDAO();
+    FilmDAO video = new FilmDAO();
+    ImageDAO image = new ImageDAO();
 
     /**
      * Primary Function to search database by query

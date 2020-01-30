@@ -1,14 +1,17 @@
 package com.homestream.HomeStream.hibernate.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -20,6 +23,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "com.homestream.HomeStream.dao")
+@EnableTransactionManagement
 public class DbConfig {
 
     @Autowired
@@ -47,7 +51,7 @@ public class DbConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    public LocalSessionFactoryBean sessionFactoryBean() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(
@@ -58,10 +62,14 @@ public class DbConfig {
     }
 
     @Bean
+    @Primary
+    public SessionFactory sessionFactory() { return sessionFactoryBean().getObject(); }
+
+    @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
+        transactionManager.setSessionFactory(sessionFactoryBean().getObject());
         return transactionManager;
     }
 

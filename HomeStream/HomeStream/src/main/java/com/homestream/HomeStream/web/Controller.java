@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.web;
 
-import com.homestream.HomeStream.entity.MediaEntity;
 import com.homestream.HomeStream.main.RequestHandler;
 import com.homestream.HomeStream.web.assets.HTML;
 import org.springframework.http.MediaType;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 public class Controller
@@ -58,7 +56,7 @@ public class Controller
     @RequestMapping("/{id}")
     public String getGallery(@PathVariable("id") String id)
     {
-        html[1].prepare((List<MediaEntity>) requesthandler.search(id), id);
+        html[1].prepare(requesthandler.search(id), id);
         return html[1].get();
     }
 

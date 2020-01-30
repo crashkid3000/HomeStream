@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
@@ -17,7 +19,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
+
 public class MusicDAO implements IMusicDAO {
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -27,6 +34,7 @@ public class MusicDAO implements IMusicDAO {
      *
      * @return a SessionFactory
      */
+
     private static SessionFactory getSessionFactory() {
         Configuration cfg = new Configuration().configure();
         StandardServiceRegistryBuilder ssrBuilder = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
@@ -40,7 +48,7 @@ public class MusicDAO implements IMusicDAO {
      * @return The newly opened Session
      */
     protected Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = sessionFactory.openSession();
         return currentSession;
     }
 
@@ -50,7 +58,7 @@ public class MusicDAO implements IMusicDAO {
      * @return The newly opened Session
      */
     protected Session openCurrentSessionWithTransaction() {
-        currentSession = getSessionFactory().openSession();
+        currentSession = sessionFactory.openSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
@@ -131,7 +139,7 @@ public class MusicDAO implements IMusicDAO {
                 }
             }
             retVal = new LinkedList<>(tempList);
-            tempList = new LinkedList();
+            tempList = new LinkedList<>();
         }
 
         return retVal;
@@ -171,11 +179,10 @@ public class MusicDAO implements IMusicDAO {
 
     @Override
     public List<MusicEntity> getAll() {
-        List<MusicEntity> retVal = new LinkedList<>();
+        List<MusicEntity> retVal;
         openCurrentSession();
-        retVal = (List<MusicEntity>) currentSession.createQuery("from Music").getResultList();
+        retVal = (List<MusicEntity>) currentSession.createQuery("from MusicEntity", MusicEntity.class).getResultList();
         return retVal;
-
     }
 
     @Override

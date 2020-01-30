@@ -63,7 +63,8 @@ public class ConsoleDecrypts
     }
 
     private void infoCommands(String[] items) throws CommandItemException {
-        if(items.length == 1) System.out.println("General Information's");
+        if(items.length == 1) MessageBuilder.printSeverMessages("General Information's","Version = " + Properties.VERSION,
+                "Current Language = " + Properties.LANG);
         else if(items[1].equalsIgnoreCase("user")) System.out.println("User Information's");
         else if(items[1].equalsIgnoreCase("media")) System.out.println("Media Information's");
         else if(items[1].equalsIgnoreCase("music")) System.out.println("Music Information's");
@@ -77,10 +78,10 @@ public class ConsoleDecrypts
         else if(items[1].equalsIgnoreCase("lang") && items.length == 2) MessageBuilder.printArraysWithTitle_Parallel("Available Languages", Properties.LANGUAGES, Properties.LANGUAGE_TAGS);
         else if(items[1].equalsIgnoreCase("lang") && items.length == 3)
         {
-            if (Assets.compareWithArray(items[2],Properties.LANGUAGE_TAGS) || Assets.compareWithArray(items[2],Properties.LANGUAGES))
+            if (Assets.compareWithArray(items[2],Properties.LANGUAGE_TAGS))
             {
                 Properties.LANG = items[2];
-                MessageBuilder.printMessageWithTitle("Server","Change Language to " + items[2]);
+                MessageBuilder.printSeverMessages("Change Language to " + items[2]);
             }
             else MessageBuilder.hint("<lang> neat to be an Language Tag. For example en_US for US-English");
         }
@@ -117,11 +118,11 @@ public class ConsoleDecrypts
             out += "* remove roll <userID> <rollID> = remove Roll to user\n";
             out += "*\n";
             out += "* edit media <mediaID> <name> <mediaFile> <mediaThumbnail> <mediaDescription> <mediaOwner> <mediaAuthor>[array] <mediaTags>[array] <mediaRolls>[array] = edit Media Information\n";
-            out += "* remove media <mediaID> = remove Media";
-            out += "*";
-            out += "* config = print all Config Commands";
-            out += "* config lang = print all available Languages";
-            out += "* config lang <lang> = set Language";
+            out += "* remove media <mediaID> = remove Media\n";
+            out += "*\n";
+            out += "* config = print all Config Commands\n";
+            out += "* config lang = print all available Languages\n";
+            out += "* config lang <lang> = set Language\n";
 
             System.out.println(out);
         }

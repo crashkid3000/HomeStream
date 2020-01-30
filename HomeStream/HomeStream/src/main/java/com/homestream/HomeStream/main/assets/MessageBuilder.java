@@ -47,19 +47,15 @@ public class MessageBuilder
 
     /**
      * Print out Messages with Title
-     * @param title
      * @param message
      * @param messages
      */
-    public static void printMessageWithTitle(String title, String message, String... messages)
+    public static void printSeverMessages(String message, String... messages)
     {
-        System.out.println(title + ":");
+        System.out.println("Server:");
         System.out.println(message);
 
-        for (String s : messages)
-        {
-            System.out.println(s);
-        }
+        for (String s : messages) System.out.println(s);
     }
 
     /**

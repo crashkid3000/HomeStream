@@ -18,7 +18,6 @@ public class ArtistVO {
     private long dbid;
     @Column(name="name", nullable = false)
     private String name;
-    @Temporal(TemporalType.DATE)
     @Column(name="bday")
     private LocalDate bday;
 

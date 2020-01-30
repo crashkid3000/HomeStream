@@ -1,7 +1,6 @@
 package com.homestream.HomeStream.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,12 +16,9 @@ public class PlaylistEntity implements IEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @Temporal(TemporalType.DATE)
     private LocalDate createdOn;
-    @Temporal(TemporalType.DATE)
     private LocalDate lastUpdated;
-    @Temporal(TemporalType.DATE)
-    private java.sql.Date lastStreamed;
+    private LocalDate lastStreamed;
     @ManyToMany
     @JoinTable(name="__PlaylistMediaTable",
         joinColumns = @JoinColumn(name="Playlist_ID"),
@@ -39,7 +35,7 @@ public class PlaylistEntity implements IEntity {
      * @param lastStreamed When the playlist was most recently streamed
      * @param content The media files in this playlist
      */
-    public PlaylistEntity(long id, String name, LocalDate createdOn, LocalDate lastUpdated, java.sql.Date lastStreamed, List<MediaEntity> content) {
+    public PlaylistEntity(long id, String name, LocalDate createdOn, LocalDate lastUpdated, LocalDate lastStreamed, List<MediaEntity> content) {
         this.id = id;
         this.name = name;
         this.createdOn = createdOn;
@@ -55,7 +51,7 @@ public class PlaylistEntity implements IEntity {
      * @param lastStreamed When the playlist was most recently streamed
      * @param content The media files in this playlist
      */
-    public PlaylistEntity(String name, LocalDate lastUpdated, Date lastStreamed, List<MediaEntity> content) {
+    public PlaylistEntity(String name, LocalDate lastUpdated, LocalDate lastStreamed, List<MediaEntity> content) {
         this(-1, name, LocalDate.now(), lastUpdated, lastStreamed, content);
     }
 
@@ -83,7 +79,7 @@ public class PlaylistEntity implements IEntity {
         return lastUpdated;
     }
 
-    public java.sql.Date getLastStreamed() {
+    public LocalDate getLastStreamed() {
         return lastStreamed;
     }
 
@@ -109,7 +105,7 @@ public class PlaylistEntity implements IEntity {
      * When the playlist was last streamed. <i>Does not refresh the <code>lastUpdated</code> parameter</i>
      * @param lastStreamed When the playlist was last streamed
      */
-    public void setLastStreamed(Date lastStreamed) {
+    public void setLastStreamed(LocalDate lastStreamed) {
         this.lastStreamed = lastStreamed;
     }
 

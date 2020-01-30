@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao;
 
-import com.homestream.HomeStream.entity.FilmEntity;
 import com.homestream.HomeStream.entity.ImageEntity;
 import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.ArtistVO;
@@ -130,7 +129,7 @@ public class ImageDAO implements IImageDAO {
                 }
             }
             retVal = new LinkedList<>(tempList);
-            tempList = new LinkedList();
+            tempList = new LinkedList<>();
         }
 
         return retVal;
