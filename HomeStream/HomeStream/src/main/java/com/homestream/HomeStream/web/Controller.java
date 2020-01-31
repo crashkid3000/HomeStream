@@ -2,6 +2,7 @@ package com.homestream.HomeStream.web;
 
 import com.homestream.HomeStream.main.RequestHandler;
 import com.homestream.HomeStream.web.assets.HTML;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,8 @@ public class Controller
      * Controller to interact with HTTP
      */
 
-    RequestHandler requesthandler = new RequestHandler();
+    @Autowired
+    RequestHandler requesthandler;
     HttpServletResponse response;
 
     private HTML[] html;
