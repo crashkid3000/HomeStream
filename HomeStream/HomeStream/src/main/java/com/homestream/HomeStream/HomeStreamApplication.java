@@ -15,7 +15,7 @@ public class HomeStreamApplication extends WebMvcConfigurerAdapter {
 	public static void main(String[] args)
 	{
 		ConsoleHandler consoleHandler = new ConsoleHandler();
-		consoleHandler.run();
+//		consoleHandler.run();
 
 		System.out.println(Properties.VERSION);
 		SpringApplication homeStream = new SpringApplication();
@@ -24,7 +24,7 @@ public class HomeStreamApplication extends WebMvcConfigurerAdapter {
 		properties.put("spring.resources.static-locations", ".\\res\\css");
 
 		homeStream.setDefaultProperties(properties);
-		homeStream.run(HomeStreamApplication.class, args);
+		SpringApplication.run(HomeStreamApplication.class, args);
 		
 	}
 }
