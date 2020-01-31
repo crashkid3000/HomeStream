@@ -7,17 +7,20 @@ import com.homestream.HomeStream.entity.IEntity;
 import com.homestream.HomeStream.entity.MediaEntity;
 import com.homestream.HomeStream.main.assets.Assets;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
+@Service
 public class RequestHandler {
 
-    MusicDAO music = new MusicDAO();
+    @Autowired
+    MusicDAO music;
+
     FilmDAO video = new FilmDAO();
     ImageDAO image = new ImageDAO();
 
@@ -86,7 +89,7 @@ public class RequestHandler {
          */
         switch(searchInput){
 
-            case "music":   return music.getAll();
+            case "music":   return music.findAll();
             case "film":    return video.getAll();
             case "image":   return image.getAll();
             case "all":   return getFromAll();
@@ -117,7 +120,8 @@ public class RequestHandler {
     private List<MediaEntity> getFromAll(){
         List<MediaEntity> returnList = new LinkedList<>();
 
-        returnList.addAll(music.getAll());
+        music.findById(1L);
+        returnList.addAll(music.findAll());
         returnList.addAll(video.getAll());
         returnList.addAll(image.getAll());
 

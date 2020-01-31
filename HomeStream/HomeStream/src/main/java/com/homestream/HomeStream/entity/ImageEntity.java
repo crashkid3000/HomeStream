@@ -4,8 +4,8 @@ import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public class ImageEntity extends MediaEntity {
      * @param artists The artists who created this imgae (artist/photographer/...)
      * @param size The size dimensions of this image (<code>[0]</code>:width; <code>[1]</code>: height)
      */
-    public ImageEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalDate uploadedOn, LocalDate lastStreamed, int[] size) {
+    public ImageEntity(long id, String name, Date releaseDate, Date lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, Date uploadedOn, Date lastStreamed, int[] size) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, uploadedOn, lastStreamed);
         this.artists = artists;
         this.width = size[0];
@@ -63,7 +63,7 @@ public class ImageEntity extends MediaEntity {
      * @param size The size dimensions of this image (<code>[0]</code>:width; <code>[1]</code>: height)
      */
     @Deprecated
-    public ImageEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, LocalDate lastStreamed, int[] size) {
+    public ImageEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, Date lastStreamed, int[] size) {
         this(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, tags, artists, lastStreamed,  size[0], size[1]);
     }
 
@@ -81,15 +81,15 @@ public class ImageEntity extends MediaEntity {
      * @param width The wifth (in pixels) of this image
      * @param height The height (in pixels) of this image
      */
-    public ImageEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, LocalDate lastStreamed, int width, int height) {
-        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, fileName, tags, LocalDate.now(), lastStreamed);
+    public ImageEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, Date lastStreamed, int width, int height) {
+        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, fileName, tags, (new Date(Calendar.getInstance().getTimeInMillis())), lastStreamed);
         this.artists = artists;
         this.width = width;
         this.height = height;
     }
 
     public ImageEntity(long id, ImageEntity Idless){
-        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getArtists(), Idless.getUploadedOn(), Idless.getLastStreamed(), Idless.getSize());
+        this(id, Idless.getName(), Idless.getReleaseDate(), new Date(Calendar.getInstance().getTimeInMillis()), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getArtists(), Idless.getUploadedOn(), Idless.getLastStreamed(), Idless.getSize());
     }
 
     protected ImageEntity(){
