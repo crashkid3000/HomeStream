@@ -27,9 +27,9 @@ public class Properties
     public static String LANG = propertiesLoader.getAsString("general.lang");
 
     private static final byte VERSION_MAJOR = 0;
-    private static final byte VERSION_MINOR = 1;
-    private static final short VERSION_PATCH = 5;
-    private static final String  VERSION_DATE = "09.12.2019";
+    private static final byte VERSION_MINOR = 5;
+    private static final short VERSION_PATCH = 3;
+    private static final String  VERSION_DATE = "26.01.2020";
     public static final String VERSION = VERSION_MAJOR + ":" + VERSION_MINOR + ":" + VERSION_PATCH + " - " + VERSION_DATE ;
 
     /**
