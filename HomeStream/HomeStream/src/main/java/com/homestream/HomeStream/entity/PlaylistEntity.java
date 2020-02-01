@@ -14,10 +14,15 @@ public class PlaylistEntity implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ID")
     private long id;
+    @Column(name="name")
     private String name;
+    @Column(name="createdOn")
     private LocalDate createdOn;
+    @Column(name="lastUpdated")
     private LocalDate lastUpdated;
+    @Column(name="lastStreamed")
     private LocalDate lastStreamed;
     @ManyToMany
     @JoinTable(name="__PlaylistMediaTable",

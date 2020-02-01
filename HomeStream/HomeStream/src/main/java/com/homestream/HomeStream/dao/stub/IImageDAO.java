@@ -1,4 +1,4 @@
-package com.homestream.HomeStream.dao;
+package com.homestream.HomeStream.dao.stub;
 
 import com.homestream.HomeStream.entity.ImageEntity;
 import com.homestream.HomeStream.vo.ArtistVO;

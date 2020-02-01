@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IFilmDAO;
 import com.homestream.HomeStream.entity.FilmEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 

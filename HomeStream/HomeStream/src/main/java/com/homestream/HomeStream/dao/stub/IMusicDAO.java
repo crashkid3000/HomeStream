@@ -1,5 +1,6 @@
-package com.homestream.HomeStream.dao;
+package com.homestream.HomeStream.dao.stub;
 
+import com.homestream.HomeStream.dao.stub.IMediaDAO;
 import com.homestream.HomeStream.entity.MusicEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 

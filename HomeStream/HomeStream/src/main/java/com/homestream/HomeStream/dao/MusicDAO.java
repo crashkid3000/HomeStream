@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import javax.persistence.metamodel.EntityType;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -38,5 +39,15 @@ public interface MusicDAO extends CrudRepository<MusicEntity, Long> {
     List<MusicEntity> getByName(String name);
 
     List<MusicEntity> findAll();
+
+    List<MusicEntity> getByReleaseDate(Date date);
+
+    List<MusicEntity> getByTags(String tags);
+
+    List<MusicEntity> getByUploadedOn(Date uploadedOn);
+
+    List<MusicEntity> getByLastStreamed(Date lastStreamed);
+
+    List<MusicEntity> getByArtists(ArtistVO artist);
 
 }

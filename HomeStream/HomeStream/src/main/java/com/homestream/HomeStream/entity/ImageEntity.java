@@ -22,7 +22,9 @@ public class ImageEntity extends MediaEntity {
                inverseJoinColumns = @JoinColumn(name="Image_ID"))
     @JoinColumn(name="ID")
     private List<ArtistVO> artists;
+    @Column(name="width")
     private int width;
+    @Column(name="height")
     private int height;
 
     /**

@@ -20,9 +20,10 @@ public class RequestHandler {
 
     @Autowired
     MusicDAO music;
-
-    FilmDAO video = new FilmDAO();
-    ImageDAO image = new ImageDAO();
+    @Autowired
+    FilmDAO video;
+    @Autowired
+    ImageDAO image;
 
     /**
      * Primary Function to search database by query
@@ -90,8 +91,8 @@ public class RequestHandler {
         switch(searchInput){
 
             case "music":   return music.findAll();
-            case "film":    return video.getAll();
-            case "image":   return image.getAll();
+            case "film":    return video.findAll();
+            case "image":   return image.findAll();
             case "all":   return getFromAll();
 
             default: return getFromAll(searchInput);
@@ -122,8 +123,8 @@ public class RequestHandler {
 
         music.findById(1L);
         returnList.addAll(music.findAll());
-        returnList.addAll(video.getAll());
-        returnList.addAll(image.getAll());
+        returnList.addAll(video.findAll());
+        returnList.addAll(image.findAll());
 
         return Assets.randomizeList(returnList);
     }
