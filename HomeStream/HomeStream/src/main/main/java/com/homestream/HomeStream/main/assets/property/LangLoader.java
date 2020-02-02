@@ -61,17 +61,19 @@ public class LangLoader
 
             for(String line : lines)
             {
-                elements = line.split(" = ");
-                if(elements.length != 2) throw new LineFormatMismatch();
-                data.replace(elements[0],elements[1]);
-                System.out.println(elements[0]);
+                if(line.replaceAll(" ","").length() > 0)
+                {
+                    elements = line.split(" = ");
+                    if(elements.length != 2) throw new LineFormatMismatch();
+                    data.replace(elements[0],elements[1]);
+                }
             }
         }
     }
 
     public static String getValue(String key)
     {
-        if(data.get(key) == null) return "NO_VALUE";
+        if(data.get(key) == null) return key + "_NO_VALUE";
         else return data.get(key);
     }
 }

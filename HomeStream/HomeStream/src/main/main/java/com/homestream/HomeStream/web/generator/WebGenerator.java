@@ -23,7 +23,7 @@ public class WebGenerator
     ScriptEngine script = new ScriptEngine();
 
 
-    public String generate(String scriptFile, boolean statics, boolean music)
+    public String generate(String scriptFile, boolean statics, boolean music, boolean video)
     {
         File file = new File(scriptFile);
         try {
@@ -36,14 +36,14 @@ public class WebGenerator
 
         String out = null;
         try {
-            out = write(statics, music);
+            out = write(statics, music, video);
         } catch (ScriptFormatException e) {
             e.printStackTrace();
         }
         return out;
     }
 
-    private String write(boolean statics, boolean music) throws ScriptFormatException {
+    private String write(boolean statics, boolean music, boolean video) throws ScriptFormatException {
         String out = "";
 
         out += "<!DOCTYPE html>\n";
@@ -55,17 +55,25 @@ public class WebGenerator
         out += "</head>\n";
         out += "<body>\n";
 
-        if (statics) out += getContent("#HEAD");
-        if (!statics) out += getContent("#AUDIOHEAD");
-        if (statics) out += "<div class=\"boxFirst\">";
-        if (statics) out += getContent("#NAVIGATION");
-        if (statics) out += decrypt("content:");
-        if (statics) out += "</div>";
+        out += getContent("#HEAD");
+
+        out += getContent("#AUDIOHEAD");
+        out += getContent("#VIDEOHEAD");
+        out += getContent("#IMGHEAD");
+        out += getContent("#LOGIN");
+        out += getContent("#SEARCH");
+        out += getContent("#UPLOAD");
+
+        out += "<div class=\"boxFirst\">";
+        out += getContent("#NAVIGATION");
+        out += decrypt("content:");
+        out += "</div>";
 
         out += getJS("#MAIN_JS");
         out += getJS("#CONTENT_JS");
 
         if (music) out += getJS("#AUDIO_JS");
+        if (video) out += getJS("#VIDEO_JS");
 
         out += "</body>\n";
         out += "</html>\n";
@@ -138,6 +146,7 @@ public class WebGenerator
     if(item.endsWith("MAIN_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.MAIN_JS + "\">\n</script>";
     if(item.endsWith("CONTENT_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.CONTENT_JS + "\">\n</script>";
     if(item.endsWith("AUDIO_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.AUDIO_JS + "\">\n</script>";
+    if(item.endsWith("VIDEO_JS")) return "<script text=\"text/javascript\" src=\"" + Properties.VIDEO_JS + "\">\n</script>";
     else return null;
 }
 
@@ -148,6 +157,14 @@ public class WebGenerator
                 return Properties.CONTENT_TITLE[0].get();
             case "#AUDIOHEAD":
                 return Properties.AUDIO_TITLE[0].get();
+            case "#VIDEOHEAD":
+                return Properties.VIDEO_TITLE[0].get();
+            case "#IMGHEAD":
+                return Properties.IMG_TITLE[0].get();
+            case "#LOGIN":
+                return Properties.LOGIN[0].get();
+            case "#SEARCH":
+                return Properties.SEARCH[0].get();
             case "#NAVIGATION":
                 return Properties.CONTENT_NAVIGATION[0].get();
             case "#LATEST_UPLOADS":
@@ -155,6 +172,8 @@ public class WebGenerator
             case "#FAVORITES":
             case "#SEARCH_RESULT":
                 return Properties.CONTENT_ELEMENT[0].get();
+            case "#UPLOAD":
+                return Properties.UPLOAD[0].get();
             case "#FOOT":
                 return Properties.FOOT.get();
             default:

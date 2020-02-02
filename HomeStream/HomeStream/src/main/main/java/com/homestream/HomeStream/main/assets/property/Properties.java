@@ -22,7 +22,7 @@ public class Properties
             "Stream your Family"};
 
     public static final String DOMAIN = "homestream.com";
-    public static String[] LANGUAGES = loader.readDirectory("./res/lang/");
+    public static String[] LANGUAGES = loader.readDirectory("./res/lang/", ".lang");
     public static String LANG = "de_DE";
 
     private static final byte VERSION_MAJOR = 0;
@@ -53,6 +53,7 @@ public class Properties
     public static final String MAIN_JS = JS_PATH + "main.js";
     public static final String CONTENT_JS = JS_PATH + "content.js";
     public static final String AUDIO_JS = JS_PATH + "audio.js";
+    public static final String VIDEO_JS = JS_PATH + "video.js";
 
     private static final String TEMP_PATH = "./res/template/";
     public static final TEMP[] CONTENT_NAVIGATION = new TEMP[]
@@ -61,10 +62,20 @@ public class Properties
             {new TEMP(TEMP_PATH + "defaultTitle")};
     public static final TEMP[] AUDIO_TITLE = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultAudioTitle")};
+    public static final TEMP[] VIDEO_TITLE = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultVideoTitle")};
+    public static final TEMP[] LOGIN = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultUser")};
+    public static final TEMP[] SEARCH = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultSearch")};
+    public static final TEMP[] IMG_TITLE = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultImageTitle")};
     public static final TEMP[] CONTENT_ELEMENT = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultContentElement")};
     public static final TEMP[] CONTENT_ALL = new TEMP[]
             {new TEMP(TEMP_PATH + "defaultContentAll")};
+    public static final TEMP[] UPLOAD = new TEMP[]
+            {new TEMP(TEMP_PATH + "defaultUpload")};
 
     public static final TEMP FOOT = new TEMP(TEMP_PATH + "foot");
 

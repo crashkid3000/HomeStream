@@ -14,7 +14,7 @@ import java.util.Map;
 public class ScriptEngine
 {
     /**
-     * Class to to read | write '.script' Files
+     * Class to to read '.script' Files
      *
      * @author S. Schulze
      * @last_update 6.11.19
