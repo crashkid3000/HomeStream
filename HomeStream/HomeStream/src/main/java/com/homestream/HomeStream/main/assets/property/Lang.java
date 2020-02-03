@@ -4,9 +4,6 @@ public class Lang
 {
     /**
      * Language Properties
-     *
-     * @author S. Schulze
-     * @last_update 28.11.19
      */
 
     private static LangLoader loader = new LangLoader();

@@ -14,10 +14,7 @@ import java.util.Map;
 public class ScriptEngine
 {
     /**
-     * Class to to read '.script' Files
-     *
-     * @author S. Schulze
-     * @last_update 6.11.19
+     * Class to Handle .Script Files
      */
 
     File script;

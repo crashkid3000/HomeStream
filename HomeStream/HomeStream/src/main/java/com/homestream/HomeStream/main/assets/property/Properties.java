@@ -7,9 +7,6 @@ public class Properties
 {
     /**
      * General Properties
-     *
-     * @author S. Schulze
-     * @last_update 15.11.19
      */
 
     private static Loader loader = new Loader();

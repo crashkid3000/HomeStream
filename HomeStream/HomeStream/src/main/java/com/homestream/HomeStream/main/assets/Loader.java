@@ -10,9 +10,6 @@ public class Loader
 {
     /**
      * Class to read line based Files
-     *
-     * @author S. Schulze
-     * @last_update 6.11.19
      */
 
 
