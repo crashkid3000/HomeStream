@@ -4,9 +4,9 @@ import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -29,6 +29,7 @@ public class FilmEntity extends MediaEntity {
         inverseJoinColumns = @JoinColumn(name="Film_ID"))
     @JoinColumn(name="ID")
     private List<ArtistVO> sideActors;
+    @Column(name="length")
     private LocalTime length;
 
     /**
@@ -48,7 +49,7 @@ public class FilmEntity extends MediaEntity {
      * @param sideActors The other actors in this movie
      * @param length How long it is
      */
-    public FilmEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate uploadedOn, LocalDate lastStreamed, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+    public FilmEntity(long id, String name, Date releaseDate, Date lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, Date uploadedOn, Date lastStreamed, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, uploadedOn, lastStreamed);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
@@ -70,15 +71,15 @@ public class FilmEntity extends MediaEntity {
      * @param mainActors The main actors in this movie
      * @param sideActors The other actors in this movie
      */
-    public FilmEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, LocalDate lastStreamed, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
-        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, LocalDate.now(), lastStreamed);
+    public FilmEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, Date lastStreamed, List<ArtistVO> mainActors, List<ArtistVO> sideActors, LocalTime length) {
+        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, new Date(Calendar.getInstance().getTimeInMillis()), lastStreamed);
         this.mainActors = mainActors;
         this.sideActors = sideActors;
         this.length = length;
     }
 
     public FilmEntity(long id, FilmEntity Idless){
-        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getUploadedOn(), Idless.getLastStreamed(), Idless.getMainActors(), Idless.getSideActors(), Idless.getLength());
+        this(id, Idless.getName(), Idless.getReleaseDate(), new Date(Calendar.getInstance().getTimeInMillis()), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getUploadedOn(), Idless.getLastStreamed(), Idless.getMainActors(), Idless.getSideActors(), Idless.getLength());
     }
 
     protected FilmEntity() {

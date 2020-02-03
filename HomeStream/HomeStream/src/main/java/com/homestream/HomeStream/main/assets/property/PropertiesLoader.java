@@ -56,6 +56,11 @@ public class PropertiesLoader
         }
     }
 
+    public boolean getAsBoolean(String key) {
+        if(properties.get(key).equalsIgnoreCase("true")) return true;
+        else return false;
+    }
+
     /**
      * Return Value as String
      * @param key

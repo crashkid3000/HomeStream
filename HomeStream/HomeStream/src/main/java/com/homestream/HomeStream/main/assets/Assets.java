@@ -13,6 +13,7 @@ public class Assets
 
     /**
      * Function to Check File Name contains File Types
+     * Return True if the
      * @param fileName
      * @param type
      * @param types
@@ -20,9 +21,24 @@ public class Assets
      */
     public static boolean checkFileType(String fileName, String type, String... types)
     {
-        if(fileName.endsWith(type.replaceFirst(".",""))) return true;
-        for (String s : types) if(fileName.endsWith(s.replaceFirst(".",""))) return true;
+        if(fileName.endsWith(type)) return true;
+        for (String s : types) if(fileName.endsWith(s)) return true;
         return false;
+    }
+
+    /**
+     * Function to split String into a list
+     * @param string
+     * @param split
+     * @return
+     */
+    public static List stringToList(String string, String split)
+    {
+        String[] temp = string.split(split);
+        List<String> out = new LinkedList<>();
+        for (String s : temp) out.add(s);
+
+        return out;
     }
 
     /**

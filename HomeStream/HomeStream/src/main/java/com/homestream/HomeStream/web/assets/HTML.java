@@ -152,6 +152,7 @@ public class HTML
         out = Assets.replaceAll(out,"@PASSWORD", Lang.PASSWORD);
 
         out = Assets.replaceAll(out,"@CLICK_TO_CLOSE", Lang.CLICK_TO_CLOSE);
+        out = Assets.replaceAll(out,"@HINT_LIST_SEPARATOR", Lang.HINT_LIST_SEPARATOR);
 
         out = Assets.replaceAll(out,"@TITLE_NAME_SEARCH", Lang.TITLE_NAME_SEARCH);
         out = Assets.replaceAll(out,"@PLAYLIST_NAME_SEARCH", Lang.PLAYLIST_NAME_SEARCH);
@@ -165,6 +166,8 @@ public class HTML
         out = Assets.replaceAll(out,"@MOTTO", Properties.MOTTO[(int) ((Math.random() * 10) % Properties.MOTTO.length)]);
 
         out = out.replaceFirst("@CONTENT_TITLE", search);
+
+        //
 
         return out;
     }
@@ -197,7 +200,7 @@ public class HTML
         out = Assets.replaceAll(out,"@MUSIC", Lang.MUSIC);
         out = Assets.replaceAll(out,"@SEARCH", Lang.SEARCH);
 
-        out = out.replaceFirst("@CONTENT_TITLE", search);
+        out = out.replaceFirst("@CONTENT_TITLE", (search == null ? "" : search));
 
         return out;
     }

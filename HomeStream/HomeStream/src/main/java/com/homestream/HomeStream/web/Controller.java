@@ -2,10 +2,14 @@ package com.homestream.HomeStream.web;
 
 import com.homestream.HomeStream.main.RequestHandler;
 import com.homestream.HomeStream.web.assets.HTML;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.MultipartConfigElement;
 import java.io.IOException;
 
 @RestController
@@ -15,8 +19,8 @@ public class Controller
      * Controller to interact with HTTP
      */
 
-    RequestHandler requesthandler = new RequestHandler();
-    HttpServletResponse response;
+    @Autowired
+    RequestHandler requesthandler;
 
     private HTML[] html;
 
@@ -74,6 +78,33 @@ public class Controller
         //response.addCookie(new Cookie(name, userID));
 
         return name + " " + psw;
+    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        return new MultipartConfigElement("");
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(-1);
+        return multipartResolver;
+    }
+
+
+    @PostMapping(value = "/upload", consumes = "multipart/form-data")
+    public String upload(@RequestParam("title") String title, @RequestParam("artist") String artist, @RequestParam("tags") String tags, @RequestPart("media") MultipartFile media, @RequestParam("thumbnail") MultipartFile thumbnail) {
+
+        System.out.println(title);
+        System.out.println(artist);
+        System.out.println(tags);
+        System.out.println(media.getSize());
+        System.out.println(thumbnail.getSize());
+
+        requesthandler.save(media,thumbnail,title,artist,tags);
+
+        return "Redirect: /";
     }
 
     /**

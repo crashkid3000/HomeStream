@@ -1,7 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IImageDAO;
-import com.homestream.HomeStream.dao.ImageDAO;
 import com.homestream.HomeStream.entity.ImageEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 

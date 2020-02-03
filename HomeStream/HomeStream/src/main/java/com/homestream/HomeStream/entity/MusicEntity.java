@@ -4,9 +4,9 @@ import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ import java.util.List;
  * @author Justin Braack
  */
 @Entity
-@Table(name="music")
+@Table(name="Music")
 public class MusicEntity extends MediaEntity{
 
     @ManyToMany
@@ -23,6 +23,7 @@ public class MusicEntity extends MediaEntity{
         inverseJoinColumns = @JoinColumn(name="Music_ID"))
     @JoinColumn(name="ID")
     private List<ArtistVO> artists;
+    @Column(name="length")
     private LocalTime length;
 
     /**
@@ -42,7 +43,7 @@ public class MusicEntity extends MediaEntity{
      * @param artists Who performs in this song
      * @param length THe length of the song
      */
-    public MusicEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalDate uploadedOn, LocalDate lastStreamed, LocalTime length) {
+    public MusicEntity(long id, String name, Date releaseDate, Date lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, Date uploadedOn, Date lastStreamed, LocalTime length) {
         super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, uploadedOn, lastStreamed);
         this.artists = artists;
         this.length = length;
@@ -62,14 +63,14 @@ public class MusicEntity extends MediaEntity{
      * @param artists Who performs in this song
      * @param length The length of the song
      */
-    public MusicEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, LocalDate lastStreamed, LocalTime length) {
-        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, LocalDate.now(), lastStreamed);
+    public MusicEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, Date lastStreamed, LocalTime length) {
+        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), lastStreamed);
         this.artists = artists;
         this.length = length;
     }
 
     public MusicEntity(long id, MusicEntity idless){
-        this(id, idless.getName(), idless.getReleaseDate(), LocalDateTime.now(), idless.getFileName(), idless.getFileSize(), idless.getOwnedBy(), idless.getAccessibleBy(), idless.getThumbnailName(), idless.getTags(), idless.getArtists(), idless.getUploadedOn(), idless.getLastStreamed(), idless.getLength());
+        this(id, idless.getName(), idless.getReleaseDate(), new java.sql.Date(Calendar.getInstance().getTimeInMillis()), idless.getFileName(), idless.getFileSize(), idless.getOwnedBy(), idless.getAccessibleBy(), idless.getThumbnailName(), idless.getTags(), idless.getArtists(), idless.getUploadedOn(), idless.getLastStreamed(), idless.getLength());
     }
 
     protected MusicEntity(){

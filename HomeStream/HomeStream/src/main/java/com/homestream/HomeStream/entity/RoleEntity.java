@@ -18,6 +18,7 @@ public class RoleEntity implements IEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ID")
     private long id;
+    @Column(name="name")
     private String name;
     @OneToMany //(mappedBy="User") -- müssen wir ggf noch anfügen
     @JoinColumn(name="Role_ID")

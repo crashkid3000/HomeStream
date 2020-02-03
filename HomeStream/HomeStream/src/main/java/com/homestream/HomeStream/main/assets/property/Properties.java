@@ -26,6 +26,8 @@ public class Properties
     public static String[] LANGUAGE_TAGS = propertiesLoader.getAsArray("general.lang.tags");
     public static String LANG = propertiesLoader.getAsString("general.lang");
 
+    public static boolean REPLACE_UPLOADED_FILES = propertiesLoader.getAsBoolean("general.REPLACE_UPLOADED_FILES");
+
     private static final byte VERSION_MAJOR = 0;
     private static final byte VERSION_MINOR = 5;
     private static final short VERSION_PATCH = 3;

@@ -7,10 +7,11 @@ import com.homestream.HomeStream.entity.RoleEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,8 +65,8 @@ public class DBStub {
             LinkedList<RoleEntity> __roleCars = new LinkedList<>();
             __roleCars.add(roles.get(0));
 
-            films.add(new FilmEntity(0, "Atomflick", LocalDate.of(2019, 11, 23), LocalDateTime.now(), "Csgo Atomflicc-1.m4v", 19281365, users.get(3), __roleAtomflick, null, new LinkedList<String>(), LocalDate.now(), LocalDate.now(), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
-            films.add(new FilmEntity(1, "Cars (Music Video)", LocalDate.of(1999, 8, 28), LocalDateTime.now(), "Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), __roleCars, null, new LinkedList<String>(), LocalDate.now(), LocalDate.now(), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
+            films.add(new FilmEntity(0, "Atomflick", new Date(2019, 11, 23), new Date(Calendar.getInstance().getTimeInMillis()), "Csgo Atomflicc-1.m4v", 19281365, users.get(3), __roleAtomflick, null, new LinkedList<String>(), new Date(Calendar.getInstance().getTimeInMillis()), new Date(Calendar.getInstance().getTimeInMillis()), __ownerAtomflick, null, LocalTime.of(0, 0, 19)));
+            films.add(new FilmEntity(1, "Cars (Music Video)", new Date(1999, 8, 28), new Date(Calendar.getInstance().getTimeInMillis()), "Fear Factory - Cars (Official MusicVideo).mp4", 15872449, users.get(3), __roleCars, null, new LinkedList<String>(), new Date(Calendar.getInstance().getTimeInMillis()), new Date(Calendar.getInstance().getTimeInMillis()), __mainActorsCars, null, LocalTime.of(0, 3, 19)));
         }
 
         if(null == musicEntities){
@@ -80,8 +81,8 @@ public class DBStub {
             __roleMonody.add(roles.get(1));
             __roleGamma.add(roles.get(0));
 
-            musicEntities.add(new MusicEntity(0, "Monody", LocalDate.of(2015, 11, 7), LocalDateTime.now(), "TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), __roleMonody, "defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, LocalDate.now(), LocalDate.now(), LocalTime.of(0, 4, 51)));
-            musicEntities.add(new MusicEntity(1, "Gamma", LocalDate.of(1999, 1, 1), LocalDateTime.now(), "Demolition Racer.m4a", 4395643, users.get(1), __roleGamma, "demolition_racer.png", new LinkedList<String>(), __artistGamma, LocalDate.now(), LocalDate.now(), LocalTime.of(0, 4, 29)));
+            musicEntities.add(new MusicEntity(0, "Monody", new Date(2015, 11, 7), new Date(Calendar.getInstance().getTimeInMillis()), "TheFatRat - Monody (feat. Laura Brehm).mp3", 6996742, users.get(0), __roleMonody, "defettjeratte_thumbnail.jpg", new LinkedList<String>(), __artistMonody, new Date(Calendar.getInstance().getTimeInMillis()), new Date(Calendar.getInstance().getTimeInMillis()), LocalTime.of(0, 4, 51)));
+            musicEntities.add(new MusicEntity(1, "Gamma", new Date(1999, 1, 1), new Date(Calendar.getInstance().getTimeInMillis()), "Demolition Racer.m4a", 4395643, users.get(1), __roleGamma, "demolition_racer.png", new LinkedList<String>(), __artistGamma, new Date(Calendar.getInstance().getTimeInMillis()), new Date(Calendar.getInstance().getTimeInMillis()), LocalTime.of(0, 4, 29)));
         }
 
         if (null == images)
@@ -96,8 +97,8 @@ public class DBStub {
             __roleGRE.add(roles.get(0));
             __rolerPlace.add(roles.get(1));
 
-            images.add(new ImageEntity(0, "Global Retrowave Elite", LocalDate.of(2019, 9, 15), LocalDateTime.now(), "gre_with_chrome_bl.png", 410376, users.get(3), __roleGRE, null, new LinkedList<String>(), __artistCk3k, LocalDate.now(), LocalDate.now(),  new int[]{1000, 400}));
-            images.add(new ImageEntity(1, "rPlace", LocalDate.of(2017, 4, 3), LocalDateTime.now(), "rPlace.png", 842435, users.get(2), __rolerPlace, null, new LinkedList<String>(), __artistReddit, LocalDate.now(), LocalDate.now(), new int[]{4000, 4000}));
+            images.add(new ImageEntity(0, "Global Retrowave Elite", new Date(2019, 9, 15), new Date(Calendar.getInstance().getTimeInMillis()), "gre_with_chrome_bl.png", 410376, users.get(3), __roleGRE, null, new LinkedList<String>(), __artistCk3k, new Date(Calendar.getInstance().getTimeInMillis()), new Date(Calendar.getInstance().getTimeInMillis()),  new int[]{1000, 400}));
+            images.add(new ImageEntity(1, "rPlace", new Date(2017, 4, 3), new Date(Calendar.getInstance().getTimeInMillis()), "rPlace.png", 842435, users.get(2), __rolerPlace, null, new LinkedList<String>(), __artistReddit, new Date(Calendar.getInstance().getTimeInMillis()), new Date(Calendar.getInstance().getTimeInMillis()), new int[]{4000, 4000}));
         }
 
 

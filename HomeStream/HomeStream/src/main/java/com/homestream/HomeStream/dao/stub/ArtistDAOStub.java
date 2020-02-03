@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IDAO;
 import com.homestream.HomeStream.vo.ArtistVO;
 
 import java.util.LinkedList;

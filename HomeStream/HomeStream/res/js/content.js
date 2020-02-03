@@ -19,6 +19,14 @@ var sTags = document.getElementById("tags");
 
 var quit = document.getElementById("quit");
 
+var titleUpload = document.getElementById("mTitle");
+var artistUpload = document.getElementById("mArtist");
+var tagsUpload = document.getElementById("mTags");
+var fileUpload = document.getElementById("mFile");
+const thumbnailUpload = document.getElementById("mThumbnail");
+const quitUpload = document.getElementById("quitUpload");
+var sendUpload = document.getElementById("sendUpload");
+
 var sendLogin = document.getElementById("sendLogin");
 var sendSearch = document.getElementById("sendSearch");
 var loginName = document.getElementById("name");
@@ -118,6 +126,28 @@ uploadButton.addEventListener('click', function()
            {
                 upload.style.top = 0;
                 upload.style.opacity = 1;
+           });
+quitUpload.addEventListener('click', function()
+           {
+                upload.style.top = -105 + "%";
+                upload.style.opacity = 0;
+           });
+sendUpload.addEventListener('click', function()
+           {
+                var formData = new FormData();
+
+                formData.append("media", fileUpload.files[0]);
+                formData.append("thumbnail", thumbnailUpload.files[0]);
+                formData.append("title", titleUpload.value);
+                formData.append("artist", artistUpload.value);
+                formData.append("tags", tagsUpload.value);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/upload");
+                xhr.send(formData);
+
+                upload.style.top = -105 + "%";
+                upload.style.opacity = 0;
            });
 
 audioPlayer.forEach(function(a)

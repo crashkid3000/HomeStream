@@ -5,21 +5,28 @@ import com.homestream.HomeStream.dao.ImageDAO;
 import com.homestream.HomeStream.dao.MusicDAO;
 import com.homestream.HomeStream.entity.IEntity;
 import com.homestream.HomeStream.entity.MediaEntity;
+import com.homestream.HomeStream.entity.MusicEntity;
 import com.homestream.HomeStream.main.assets.Assets;
+import com.homestream.HomeStream.main.assets.property.Properties;
+import com.homestream.HomeStream.main.exception.DuplicatedObjectOnServerFoundException;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
+@Service
 public class RequestHandler {
 
-    MusicDAO music = new MusicDAO();
-    FilmDAO video = new FilmDAO();
-    ImageDAO image = new ImageDAO();
+    @Autowired
+    MusicDAO music;
+    @Autowired
+    FilmDAO video;
+    @Autowired
+    ImageDAO image;
 
     /**
      * Primary Function to search database by query
@@ -86,9 +93,9 @@ public class RequestHandler {
          */
         switch(searchInput){
 
-            case "music":   return music.getAll();
-            case "film":    return video.getAll();
-            case "image":   return image.getAll();
+            case "music":   return music.findAll();
+            case "film":    return video.findAll();
+            case "image":   return image.findAll();
             case "all":   return getFromAll();
 
             default: return getFromAll(searchInput);
@@ -117,37 +124,40 @@ public class RequestHandler {
     private List<MediaEntity> getFromAll(){
         List<MediaEntity> returnList = new LinkedList<>();
 
-        returnList.addAll(music.getAll());
-        returnList.addAll(video.getAll());
-        returnList.addAll(image.getAll());
+        music.findById(1L);
+        returnList.addAll(music.findAll());
+        returnList.addAll(video.findAll());
+        returnList.addAll(image.findAll());
 
         return Assets.randomizeList(returnList);
     }
 
     /**
      * Simple save Function to Upload Data
-     * @param file
+     * @param media
+     * @param thumbnail
+     * @param title
+     * @param artist
+     * @param tags
      * @return
      */
-    public String save(MultipartFile file, String name, String thumbnail) {
+    public String save(MultipartFile media, MultipartFile thumbnail, String title, String artist, String tags) {
 
         try
         {
-            File onServer = new File("./res/data/" + file.getOriginalFilename());
+            File onServer = new File("./res/data/" + media.getOriginalFilename());
+            FileUtils.writeByteArrayToFile(onServer, media.getBytes());
+            if(!Properties.REPLACE_UPLOADED_FILES && onServer.exists()) throw new DuplicatedObjectOnServerFoundException(media.getOriginalFilename());
 
-            if(onServer.exists());
+            onServer = new File("./res/data/" + thumbnail.getOriginalFilename());
+            FileUtils.writeByteArrayToFile(onServer, thumbnail.getBytes());
+            if(!Properties.REPLACE_UPLOADED_FILES && onServer.exists()) throw new DuplicatedObjectOnServerFoundException(thumbnail.getOriginalFilename());
 
-            FileUtils.writeByteArrayToFile(onServer, file.getBytes());
+            if(Assets.checkFileType(media.getOriginalFilename(), "mp3"))
+                music.save(new MusicEntity(title, null, media.getOriginalFilename(),media.getSize(),null,null,thumbnail.getOriginalFilename(),Assets.stringToList(tags,","),Assets.stringToList(artist, ","),null,null));
+            else if(Assets.checkFileType(media.getOriginalFilename(), "png", "jpg", "jfif"));
+            else if(Assets.checkFileType(media.getOriginalFilename(), "mp4"));
 
-            /*
-            if(Assets.checkFileType(file.getOriginalFilename(), "mp3"))
-                music.create(new MusicEntity(1, file.getOriginalFilename(), LocalDate.of(1999, 1, 1), LocalDateTime.now(), file.getName(), 4395643, null, null, "demolition_racer.png", new LinkedList<String>(), null, LocalTime.of(0, 4, 29)));
-            else if(Assets.checkFileType(file.getOriginalFilename(), "png") ||
-                    Assets.checkFileType(file.getOriginalFilename(), "jpg"))
-                image.create(new ImageEntity(0, file.getOriginalFilename(), LocalDate.of(2019, 9, 15), LocalDateTime.now(), "gre_with_chrome_bl.png", 410376, null, null, null, new LinkedList<String>(), null, new int[]{1000, 400}));
-            else if(Assets.checkFileType(file.getOriginalFilename(), "mp4"))
-                video.create(new FilmEntity(1, file.getOriginalFilename(), LocalDate.of(1999, 8, 28), LocalDateTime.now(), file.getOriginalFilename(), 15872449, null, null, null, new LinkedList<String>(), null, null, LocalTime.of(0, 3, 19)));
-            */
             return "File saved";
         }
         catch(IOException ioE)

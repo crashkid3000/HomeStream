@@ -27,6 +27,7 @@ public class Lang
 
     public static final String CLICK_TO_CLOSE = loader.getValue("MEDIA.CLICK_TO_CLOSE");
     public static final String EXT_SEARCH = loader.getValue("NAV.SEARCH.EXT_SEARCH");
+    public static final String HINT_LIST_SEPARATOR = loader.getValue("MEDIA.HINT_LIST_SEPARATOR");
 
     public static final String TITLE_NAME_SEARCH = loader.getValue("NAV.SEARCH.TITLE_NAME_SEARCH");
     public static final String PLAYLIST_NAME_SEARCH = loader.getValue("NAV.SEARCH.PLAYLIST_NAME_SEARCH");
