@@ -11,6 +11,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -25,13 +28,60 @@ import java.util.Properties;
 @Configuration
 public class DbConfig {
 
+    private static final String[] packagesToScan = {
+            "com.homestream.HomeStream.dao",
+            "com.homestream.HomeStream.entity",
+            "com.homestream.HomeStream.vo"
+    };
 
     @Bean
     public DataSource dataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.sqlite.JDBC");
         dataSourceBuilder.url("jdbc:sqlite:./res/db.sqlite");
+        DataSource ds = dataSourceBuilder.build();
         return dataSourceBuilder.build();
+    }
+
+
+    //TODO: Does this actually work?
+    @Bean
+    public LocalSessionFactoryBean sessionFactory(){
+        LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
+
+
+        //Setting further hibernaste properties
+        Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty("spring.datasource.max-active", "1");
+
+        //set session factory
+        lsfb.setDataSource(dataSource());
+        lsfb.setPackagesToScan("com.homestream.HomeStream.dao", "com.homestream.HomeStream.entity", "com.homestream.HomeStream.vo");
+        lsfb.setHibernateProperties(hibernateProperties);
+        return lsfb;
+
+    }
+
+    //TODO: Does this actually work?
+    @Bean
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(packagesToScan);
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
+        return em;
+    }
+
+    //TODO: does this actually work?
+    Properties additionalProperties(){
+        Properties p = new Properties();
+        p.setProperty("hibernate.dialect", "com.homestream.HomeStream.hibernate.sqlite.SQLiteDialect");
+        p.setProperty("spring.datasource.max-active", "1");
+        return p;
     }
 
 
