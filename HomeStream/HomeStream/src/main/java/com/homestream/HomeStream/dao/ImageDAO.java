@@ -1,8 +1,5 @@
 package com.homestream.HomeStream.dao;
 
-import com.homestream.HomeStream.dao.stub.IImageDAO;
-import com.homestream.HomeStream.entity.ImageEntity;
-import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.ArtistVO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,8 +13,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import javax.persistence.metamodel.EntityType;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 

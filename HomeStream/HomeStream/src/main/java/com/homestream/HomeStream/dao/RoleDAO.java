@@ -1,8 +1,5 @@
 package com.homestream.HomeStream.dao;
 
-import com.homestream.HomeStream.dao.stub.IDAO;
-import com.homestream.HomeStream.entity.RoleEntity;
-import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.UserVO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +14,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 

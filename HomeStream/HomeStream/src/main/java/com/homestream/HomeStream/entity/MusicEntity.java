@@ -64,13 +64,13 @@ public class MusicEntity extends MediaEntity{
      * @param length The length of the song
      */
     public MusicEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, Date lastStreamed, LocalTime length) {
-        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), lastStreamed);
+        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, new Date(Calendar.getInstance().getTimeInMillis()), lastStreamed);
         this.artists = artists;
         this.length = length;
     }
 
     public MusicEntity(long id, MusicEntity idless){
-        this(id, idless.getName(), idless.getReleaseDate(), new java.sql.Date(Calendar.getInstance().getTimeInMillis()), idless.getFileName(), idless.getFileSize(), idless.getOwnedBy(), idless.getAccessibleBy(), idless.getThumbnailName(), idless.getTags(), idless.getArtists(), idless.getUploadedOn(), idless.getLastStreamed(), idless.getLength());
+        this(id, idless.getName(), idless.getReleaseDate(), new Date(Calendar.getInstance().getTimeInMillis()), idless.getFileName(), idless.getFileSize(), idless.getOwnedBy(), idless.getAccessibleBy(), idless.getThumbnailName(), idless.getTags(), idless.getArtists(), idless.getUploadedOn(), idless.getLastStreamed(), idless.getLength());
     }
 
     protected MusicEntity(){
