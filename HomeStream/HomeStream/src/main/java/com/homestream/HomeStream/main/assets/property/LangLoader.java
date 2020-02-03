@@ -23,6 +23,9 @@ public class LangLoader
     private File lang, defaultLang;
     private static Map<String, String> data = new HashMap<>();
 
+    /**
+     * Init Language Loader
+     */
     public LangLoader(){
 
         try
@@ -40,6 +43,10 @@ public class LangLoader
         }
     }
 
+    /**
+     * Read Language File
+     * @throws IOException
+     */
     private void read() throws IOException {
         String[] lines = loader.LoadFileToStringArray(defaultLang);
 
@@ -61,17 +68,24 @@ public class LangLoader
 
             for(String line : lines)
             {
-                elements = line.split(" = ");
-                if(elements.length != 2) throw new LineFormatMismatch();
-                data.replace(elements[0],elements[1]);
-                System.out.println(elements[0]);
+                if(line.replaceAll(" ","").length() > 0)
+                {
+                    elements = line.split(" = ");
+                    if(elements.length != 2) throw new LineFormatMismatch();
+                    data.replace(elements[0],elements[1]);
+                }
             }
         }
     }
 
+    /**
+     * Return Language Value by Language Tag
+     * @param key
+     * @return
+     */
     public static String getValue(String key)
     {
-        if(data.get(key) == null) return "NO_VALUE";
+        if(data.get(key) == null) return key + "_NO_VALUE";
         else return data.get(key);
     }
 }

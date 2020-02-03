@@ -18,4 +18,5 @@ public interface IEntity
      * @return A string repesentation of this object
      */
     String toString();
+
 }

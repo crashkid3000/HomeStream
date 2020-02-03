@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IFilmDAO;
 import com.homestream.HomeStream.entity.FilmEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 
@@ -66,6 +65,11 @@ public class FilmDAOStub implements IFilmDAO {
         retVal = new FilmEntity(id, Idless);
         DBStub.films.add(retVal);
         return retVal;
+    }
+
+    @Override
+    public void update(FilmEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
     }
 
     @Override

@@ -163,14 +163,14 @@ form > div > ul > li
 
 .mediaButton
 {
-    color: white;
+    color: gray;
 
     transition: 0.5s ease;
 }
 
 .mediaButton:hover
 {
-    color: gray;
+    color: white;
 }
 
 .control
@@ -298,14 +298,15 @@ border-radius: 0.25em;
 
   text-align: center;
 
-  transition: 0.5s ease;
+  transition: 0.75s ease;
 }
 
 .cover:hover div
 {
   border-radius: 0;
   opacity: 1;
-  top: 5em;
+  top: 50%;
+  transform: translate(0,-50%);
 }
 
 video

@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IDAO;
 import com.homestream.HomeStream.vo.UserVO;
 
 import java.util.LinkedList;
@@ -28,6 +27,11 @@ public class UserDAOStub implements IDAO<UserVO> {
         }
         retVal = new UserVO((duplicate ? id : ++id), Idless);
         return retVal;
+    }
+
+    @Override
+    public void update(UserVO updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
     }
 
     @Override

@@ -1,39 +1,32 @@
 package com.homestream.HomeStream.dao;
 
+import com.homestream.HomeStream.dao.stub.IDAO;
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.UserVO;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.RepositoryDefinition;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO implements IDAO<UserVO> {
+@RepositoryDefinition(domainClass = UserVO.class, idClass = Long.class)
+public interface UserDAO extends CrudRepository<UserVO, Long> {
 
-    @Override
-    public UserVO create(UserVO Idless) {
-        return null;
-    }
+    Optional<UserVO> getByDbid(long id);
 
-    @Override
-    public void delete(UserVO toBeDeleted) {
+    List<UserVO> getByName(String name);
 
-    }
+    List<UserVO> findAll();
 
-    @Override
-    public void delete(long id) {
-
-    }
-
-    @Override
-    public List<UserVO> getAll() {
-        return null;
-    }
-
-    @Override
-    public Optional<UserVO> getById(long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<UserVO> getByName(String name) {
-        return null;
-    }
 }

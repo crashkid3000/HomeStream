@@ -1,55 +1,53 @@
 package com.homestream.HomeStream.dao;
 
 import com.homestream.HomeStream.entity.MusicEntity;
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
 import com.homestream.HomeStream.vo.ArtistVO;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.RepositoryDefinition;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.EntityType;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class MusicDAO implements IMusicDAO {
-    @Override
-    public List<MusicEntity> getByArtist(ArtistVO musician) {
-        return null;
-    }
 
-    @Override
-    public List<MusicEntity> getByReleaseDate(LocalDate release) {
-        return null;
-    }
+@RepositoryDefinition(domainClass = MusicEntity.class, idClass = Long.class)
+@Transactional(readOnly = true)
+public interface MusicDAO extends CrudRepository<MusicEntity, Long> {
 
-    @Override
-    public List<MusicEntity> getByTags(List<String> tags) {
-        return null;
-    }
+    /**
+     * Get the object with a specific <code>id</code>
+     * @param id The ID of the object that shall be returned
+     * @return The object with that <code>id</code>, hidden inside the Optional that is returned. If none if found, Optional.empty() is returned
+     */
+    Optional<MusicEntity> getById(long id);
 
-    @Override
-    public MusicEntity create(MusicEntity Idless) {
-        return null;
-    }
+    List<MusicEntity> getByName(String name);
 
-    @Override
-    public void delete(MusicEntity toBeDeleted) {
+    List<MusicEntity> findAll();
 
-    }
+    List<MusicEntity> getByReleaseDate(Date date);
 
-    @Override
-    public void delete(long id) {
+    List<MusicEntity> getByTags(String tags);
 
-    }
+    List<MusicEntity> getByUploadedOn(Date uploadedOn);
 
-    @Override
-    public List<MusicEntity> getAll() {
-        return null;
-    }
+    List<MusicEntity> getByLastStreamed(Date lastStreamed);
 
-    @Override
-    public Optional<MusicEntity> getById(long id) {
-        return Optional.empty();
-    }
+    List<MusicEntity> getByArtists(ArtistVO artist);
 
-    @Override
-    public List<MusicEntity> getByName(String name) {
-        return null;
-    }
 }

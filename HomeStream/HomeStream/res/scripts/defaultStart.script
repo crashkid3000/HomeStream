@@ -7,7 +7,6 @@ include: #CONTENT_CSS
 include: #NAVIGATION_CSS
 include: #BACKGROUND_CSS
 
-content: #LATEST_UPLOADS
 content: #FAVORITES
 content: #LATEST_STREAMS
 content: #FOOT

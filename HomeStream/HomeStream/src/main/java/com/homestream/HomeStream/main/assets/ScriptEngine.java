@@ -14,7 +14,7 @@ import java.util.Map;
 public class ScriptEngine
 {
     /**
-     * Class to to read | write '.script' Files
+     * Class to to read '.script' Files
      *
      * @author S. Schulze
      * @last_update 6.11.19
@@ -26,7 +26,11 @@ public class ScriptEngine
     ArrayList<String> keys = new ArrayList<>();
     Map<String, String[]> line = new HashMap<String, String[]>();
 
-    // Main Method to read '.script' Files
+    /**
+     * Function to load Script File
+     * @param scriptFile
+     * @throws IOException
+     */
     public void setScript(File scriptFile) throws IOException
     {
         script = scriptFile;
@@ -35,7 +39,10 @@ public class ScriptEngine
         decrypt();
     }
 
-    // Read File line by Line
+    /**
+     * Function to Read Script File
+     * @throws IOException
+     */
     private void read() throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(script));
@@ -46,7 +53,10 @@ public class ScriptEngine
         reader.close();
     }
 
-    // Decode File Data
+    /**
+     * Function to Decrypt Data in Script File
+     * @throws IOException
+     */
     private void decrypt() throws IOException
     {
         String key;
@@ -78,8 +88,17 @@ public class ScriptEngine
         }
     }
 
+    /**
+     * Return Script Data, Line by Line
+     * @param key
+     * @return
+     */
     public String[] getLine(String key){ return line.get(key); }
 
+    /**
+     * Return Script Keys
+     * @return
+     */
     public String[] getKeys()
     {
         String[] out = new String[keys.size()];

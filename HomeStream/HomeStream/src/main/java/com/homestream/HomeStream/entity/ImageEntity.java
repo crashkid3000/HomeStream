@@ -3,18 +3,29 @@ package com.homestream.HomeStream.entity;
 import com.homestream.HomeStream.vo.ArtistVO;
 import com.homestream.HomeStream.vo.UserVO;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
  * Represents everything from a photo to an hand-drawn piece of art
  * @author Justin Braack
  */
+@Entity
+@Table(name="Image")
 public class ImageEntity extends MediaEntity {
 
+    @ManyToMany
+    @JoinTable(name="__ImageArtistRole",
+            joinColumns = @JoinColumn(name="Artist_ID"),
+               inverseJoinColumns = @JoinColumn(name="Image_ID"))
+    @JoinColumn(name="ID")
     private List<ArtistVO> artists;
-    private int[] size;
+    @Column(name="width")
+    private int width;
+    @Column(name="height")
+    private int height;
 
     /**
      * Creates a new ImageEntitiy
@@ -28,13 +39,16 @@ public class ImageEntity extends MediaEntity {
      * @param accessibleBy The GroupVO that can access the image
      * @param thumbnailName Where the thumbnail lies (should be identical with <code>name</code>)
      * @param tags The tags for this image
+     * @param uploadedOn When the file was uploaded to the server
+     * @param lastStreamed When the media was last streamed
      * @param artists The artists who created this imgae (artist/photographer/...)
      * @param size The size dimensions of this image (<code>[0]</code>:width; <code>[1]</code>: height)
      */
-    public ImageEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, int[] size) {
-        super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags);
+    public ImageEntity(long id, String name, Date releaseDate, Date lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, List<ArtistVO> artists, Date uploadedOn, Date lastStreamed, int[] size) {
+        super(id, name, releaseDate, lastUpdated, fileName, fileSize, ownedBy, accessibleBy, thumbnailName, tags, uploadedOn, lastStreamed);
         this.artists = artists;
-        this.size = size;
+        this.width = size[0];
+        this.height = size[1];
     }
 
     /**
@@ -46,17 +60,42 @@ public class ImageEntity extends MediaEntity {
      * @param ownedBy The UserVO who uplaoded the file
      * @param accessibleBy The GroupVO that can access the image
      * @param tags The tags for this image
+     * @param lastStreamed When the media was last streamed
      * @param artists The artists who created this imgae (artist/photographer/...)
      * @param size The size dimensions of this image (<code>[0]</code>:width; <code>[1]</code>: height)
      */
-    public ImageEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, int[] size) {
-        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, fileName, tags);
+    @Deprecated
+    public ImageEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, Date lastStreamed, int[] size) {
+        this(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, tags, artists, lastStreamed,  size[0], size[1]);
+    }
+
+    /**
+     * Creates a new ImageEntitiy. <i>Use this if you're unsure about the ID, when it was last updated or where the thumbnail lies.</i>
+     * @param name The name of the image (e.g. 'Mona Lisa')
+     * @param releaseDate When it was published/created
+     * @param fileName Where the image lies within the file system
+     * @param fileSize How big the file is
+     * @param ownedBy The UserVO who uplaoded the file
+     * @param accessibleBy The GroupVO that can access the image
+     * @param tags The tags for this image
+     * @param lastStreamed When the media was last streamed
+     * @param artists The artists who created this imgae (artist/photographer/...)
+     * @param width The wifth (in pixels) of this image
+     * @param height The height (in pixels) of this image
+     */
+    public ImageEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, List<String> tags, List<ArtistVO> artists, Date lastStreamed, int width, int height) {
+        super(name, releaseDate, fileName, fileSize, ownedBy, accessibleBy, fileName, tags, (new Date(Calendar.getInstance().getTimeInMillis())), lastStreamed);
         this.artists = artists;
-        this.size = size;
+        this.width = width;
+        this.height = height;
     }
 
     public ImageEntity(long id, ImageEntity Idless){
-        this(id, Idless.getName(), Idless.getReleaseDate(), LocalDateTime.now(), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getArtists(), Idless.getSize());
+        this(id, Idless.getName(), Idless.getReleaseDate(), new Date(Calendar.getInstance().getTimeInMillis()), Idless.getFileName(), Idless.getFileSize(), Idless.getOwnedBy(), Idless.getAccessibleBy(), Idless.getThumbnailName(), Idless.getTags(), Idless.getArtists(), Idless.getUploadedOn(), Idless.getLastStreamed(), Idless.getSize());
+    }
+
+    protected ImageEntity(){
+
     }
 
     /**
@@ -85,7 +124,7 @@ public class ImageEntity extends MediaEntity {
      */
     @Deprecated
     public int[] getSize() {
-        return size;
+        return new int[] {this.getWidth(), this.getHeight()};
     }
 
     /**
@@ -93,7 +132,7 @@ public class ImageEntity extends MediaEntity {
      * @return The width of the image
      */
     public int getWidth(){
-        return size[0];
+        return width;
     }
 
     /**
@@ -101,7 +140,7 @@ public class ImageEntity extends MediaEntity {
      * @return The height of the image
      */
     public int getHeight(){
-        return size[1];
+        return height;
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IImageDAO;
-import com.homestream.HomeStream.dao.ImageDAO;
 import com.homestream.HomeStream.entity.ImageEntity;
 import com.homestream.HomeStream.vo.ArtistVO;
 
@@ -68,6 +66,11 @@ public class ImageDAOStub implements IImageDAO {
         retVal = new ImageEntity(id, Idless);
         DBStub.images.add(retVal);
         return retVal;
+    }
+
+    @Override
+    public void update(ImageEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.homestream.HomeStream.dao.stub;
 
-import com.homestream.HomeStream.dao.IDAO;
 import com.homestream.HomeStream.entity.RoleEntity;
 
 import java.util.*;
@@ -23,6 +22,11 @@ public class RoleDAOStub implements IDAO<RoleEntity> {
         DBStub.roles.add(e);
         return e;
 
+    }
+
+    @Override
+    public void update(RoleEntity updated){
+        System.out.println(this.getClass().getName() + "'s update(...) method was called, but it is not implemented...");
     }
 
     @Override

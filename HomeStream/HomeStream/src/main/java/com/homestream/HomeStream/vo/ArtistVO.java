@@ -1,5 +1,6 @@
 package com.homestream.HomeStream.vo;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -7,10 +8,17 @@ import java.util.Objects;
  * A value object representing an artist (musician, actor, painter, soemthing inbetween, ...)
  * @author Justin Braack
  */
+@Entity
+@Table(name="Artist")
 public class ArtistVO {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="ID")
     private long dbid;
+    @Column(name="name", nullable = false)
     private String name;
+    @Column(name="bday")
     private LocalDate bday;
 
     /**
@@ -33,6 +41,10 @@ public class ArtistVO {
     public ArtistVO(String name, LocalDate bday) {
         this.name = name;
         this.bday = bday;
+    }
+
+    protected ArtistVO(){
+
     }
 
     public ArtistVO(long dbid, ArtistVO Idless){

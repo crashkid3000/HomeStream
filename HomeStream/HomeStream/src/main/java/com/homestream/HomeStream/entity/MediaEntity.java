@@ -2,26 +2,57 @@ package com.homestream.HomeStream.entity;
 
 import com.homestream.HomeStream.vo.UserVO;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.*;
 
 /**
  * A template class that groups common properties for a media resource together
  * @author Justin Braack
  */
+@Inheritance(strategy=InheritanceType.JOINED) //Creates a separate table for this, and all subclasses
+@Entity
+@Table(name="Media")
 public abstract class MediaEntity implements IEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID")
     private long id;
+
+    @Column(name="name")
     private String name;
-    private LocalDate releaseDate;
-    private LocalDateTime lastUpdated;
+
+    @Column(name="releaseDate")
+    private Date releaseDate;
+
+    @Column(name="lastUpdated")
+    private Date lastUpdated;
+
+    @Column(name="fileName")
     private String fileName;
+
+    @Column(name="fileSize")
     private long fileSize;
+    @OneToOne
+    @JoinColumn(name="User_ID")
     private UserVO ownedBy;
+    @ManyToMany
+    @JoinTable(name="__MediaRoleTable",
+        joinColumns = @JoinColumn(name="Role_ID"),
+        inverseJoinColumns = @JoinColumn(name="Media_ID")
+    )
+    @JoinColumn(name="ID")
     private List<RoleEntity> accessibleBy;
+
+    @Column(name="thumbnailName")
     private String thumbnailName;
-    private List<String> tags;
+    private String tags; //Decided to switch from List<String> to just String to make ORM easier
+
+    @Column(name="uploadedOn")
+    private Date uploadedOn;
+
+    @Column(name="lastStreamedOn")
+    private Date lastStreamed;
 
     /**
      * Creates a new MediaEntity template
@@ -35,8 +66,10 @@ public abstract class MediaEntity implements IEntity {
      * @param accessibleBy By whom this pecia piece can be accessed by
      * @param thumbnailName Where this media piece's thumbnail lies in teh file system
      * @param tags The tags assigned to this media piece
+     * @param uploadedOn When this file was uploaded to the server
+     * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(long id, String name, LocalDate releaseDate, LocalDateTime lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags) {
+    public MediaEntity(long id, String name, Date releaseDate, Date lastUpdated, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, Date uploadedOn, Date lastStreamed) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -46,7 +79,9 @@ public abstract class MediaEntity implements IEntity {
         this.ownedBy = ownedBy;
         this.accessibleBy = accessibleBy;
         this.thumbnailName = thumbnailName;
-        this.tags = tags;
+        this.setTagsUpdatingLastUpdated(tags, false); //Don't set lastUpdated already by setting the tags in the CTOR
+        this.uploadedOn = uploadedOn;
+        this.lastStreamed = lastStreamed;
     }
 
     /**
@@ -59,18 +94,27 @@ public abstract class MediaEntity implements IEntity {
      * @param accessibleBy By whom this pecia piece can be accessed by
      * @param thumbnailName Where this media piece's thumbnail lies in teh file system
      * @param tags The tags assigned to this media piece
+     * @param uploadedOn When this file was uploaded to the server
+     * @param lastStreamed When this file was last streamed
      */
-    public MediaEntity(String name, LocalDate releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags) {
+    public MediaEntity(String name, Date releaseDate, String fileName, long fileSize, UserVO ownedBy, List<RoleEntity> accessibleBy, String thumbnailName, List<String> tags, Date uploadedOn, Date lastStreamed) {
         this.id = -1;
         this.name = name;
         this.releaseDate = releaseDate;
-        this.lastUpdated = LocalDateTime.now();
+        this.lastUpdated = new Date(Calendar.getInstance().getTimeInMillis());
         this.fileName = fileName;
         this.fileSize = fileSize;
         this.ownedBy = ownedBy;
         this.accessibleBy = accessibleBy;
         this.thumbnailName = thumbnailName;
-        this.tags = tags;
+        this.setTagsUpdatingLastUpdated(tags, false); //Don't set lastUpdated already by setting the tags in the CTOR
+        this.uploadedOn = uploadedOn;
+        this.lastStreamed = lastStreamed;
+    }
+
+    protected MediaEntity()
+    {
+
     }
 
     /**
@@ -95,14 +139,14 @@ public abstract class MediaEntity implements IEntity {
      */
     public void setName(String name) {
         this.name = name;
-        this.lastUpdated = LocalDateTime.now();
+        this.lastUpdated = new Date(Calendar.getInstance().getTimeInMillis());
     }
 
     /**
      * Returns when this media piece was released/created
-     * @return The <code>LocalDate</code> on which this media piece was released/created
+     * @return The <code>Date</code> on which this media piece was released/created
      */
-    public LocalDate getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
@@ -110,24 +154,24 @@ public abstract class MediaEntity implements IEntity {
      * Give this media piece an updated date on which it was released/created, e.g. when it goes from "created" to "published". Automatically updates the <code>lastUpdated</code> as well.
      * @param releaseDate The new date on which it was released/updated
      */
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
-        this.lastUpdated = LocalDateTime.now();
+        this.lastUpdated = new Date(Calendar.getInstance().getTimeInMillis());
     }
 
     /**
      * Returns when this media piece received it's latest update
-     * @return The exact <code>LocalDateTime</code> when the last update occurred
+     * @return The exact <code>DateTime</code> when the last update occurred
      */
-    public LocalDateTime getLastUpdated() {
+    public Date getLastUpdated() {
         return lastUpdated;
     }
 
     /**
-     * Sets the lastUpdated to the current LocalDateTime
+     * Sets the lastUpdated to the current DateTime
      */
     protected void setLastUpdated() {
-        this.lastUpdated = LocalDateTime.now();
+        this.lastUpdated = new Date(Calendar.getInstance().getTimeInMillis());
     }
 
     /**
@@ -211,7 +255,38 @@ public abstract class MediaEntity implements IEntity {
      * @return The list of tags associated with this media piece
      */
     public List<String> getTags() {
-        return tags;
+        return new LinkedList<>(Arrays.asList(tags.split(",")));
+    }
+
+    /**
+     * Returns when this media was uploaded to the server
+     * @return When this media was uploaded to the server
+     */
+    public Date getUploadedOn() { return uploadedOn; }
+
+    /**
+     * Updates when the file was uploaded to the server
+     * @param uploadedOn when this media was uploaded to the server
+     */
+    public void setUploadedOn(Date uploadedOn) {
+        this.uploadedOn = uploadedOn;
+        this.setLastUpdated();
+    }
+
+    /**
+     * Returns when this media was last streamed
+     * @return When this media was last streamed
+     */
+    public Date getLastStreamed() { return lastStreamed; }
+
+
+    /**
+     * Updates when this media was last streamed. <i>Does not refresh the <code>lastChanged</code> property</i>
+     * @param lastStreamed when this media was last streamed
+     */
+    public void setLastStreamed(Date lastStreamed) {
+
+        this.lastStreamed = lastStreamed;
     }
 
     /**
@@ -219,8 +294,30 @@ public abstract class MediaEntity implements IEntity {
      * @param tags The updated list of tags
      */
     public void setTags(List<String> tags) {
-        this.tags = tags;
-        this.setLastUpdated();
+        setTagsUpdatingLastUpdated(tags, true);
+    }
+
+    protected void setTagsUpdatingLastUpdated(List<String> tags, boolean updateLastUpdatedAsWell){
+        StringBuilder temp = new StringBuilder();
+
+        //Sort strings in alphabetical order
+        Collections.sort(tags, String.CASE_INSENSITIVE_ORDER);
+        //Iterate through all tags and append them to a comma-seperated string
+        if(tags.size() > 0)
+        {
+            for(String s: tags){
+                temp.append(s + ",");
+            }
+            temp.deleteCharAt(temp.length() - 1); //Remove last superfluous comma
+        }
+        else
+            {
+                temp.append("null");
+            }
+        this.tags = temp.toString();
+        if(updateLastUpdatedAsWell){ //if we want to update the lastUpdated as well (don't want to do this in the CTOR, but anywhere ele, we do)
+            this.setLastUpdated();
+        }
     }
 
     @Override

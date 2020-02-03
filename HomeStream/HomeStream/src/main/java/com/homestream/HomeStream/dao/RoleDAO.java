@@ -1,37 +1,34 @@
 package com.homestream.HomeStream.dao;
 
+import com.homestream.HomeStream.dao.stub.IDAO;
 import com.homestream.HomeStream.entity.RoleEntity;
+import com.homestream.HomeStream.main.exception.IdNotFoundException;
+import com.homestream.HomeStream.vo.UserVO;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.RepositoryDefinition;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
-public class RoleDAO implements IDAO<RoleEntity> {
-    @Override
-    public RoleEntity create(RoleEntity roleEntitiy) {
-        return null;
-    }
+@RepositoryDefinition(domainClass = RoleEntity.class, idClass = Long.class)
+public interface RoleDAO extends CrudRepository<RoleEntity, Long> {
 
-    @Override
-    public void delete(RoleEntity toBeDeleted) {
+    Optional<RoleEntity> getById(long id);
 
-    }
+    List<RoleEntity> getByName(String name);
 
-    @Override
-    public void delete(long id) {
+    List<RoleEntity> findAll();
 
-    }
-
-    @Override
-    public List<RoleEntity> getAll() {
-        return null;
-    }
-
-    @Override
-    public RoleEntity getById(long id) {
-        return null;
-    }
-
-    @Override
-    public List<RoleEntity> getByName(String name) {
-        return null;
-    }
+    List<RoleEntity> getByUsers(UserVO user);
 }
