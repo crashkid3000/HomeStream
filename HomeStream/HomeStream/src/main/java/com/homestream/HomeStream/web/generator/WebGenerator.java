@@ -1,7 +1,7 @@
 package com.homestream.HomeStream.web.generator;
 
-import com.homestream.HomeStream.main.assets.property.Properties;
 import com.homestream.HomeStream.main.assets.ScriptEngine;
+import com.homestream.HomeStream.main.assets.property.Properties;
 import com.homestream.HomeStream.main.exception.ScriptFormatException;
 
 import java.io.File;

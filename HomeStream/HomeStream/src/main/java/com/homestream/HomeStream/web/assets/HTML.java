@@ -7,7 +7,7 @@ import com.homestream.HomeStream.main.assets.property.Properties;
 import com.homestream.HomeStream.main.exception.FileEndingException;
 import com.homestream.HomeStream.web.generator.WebGenerator;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.List;
 
 public class HTML
